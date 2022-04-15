@@ -1,0 +1,23 @@
+spring:
+  # Configuraçao do banco de dados
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  # Configuraçao do JPA
+  jpa:
+    hibernate:
+        ddl-auto: update
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    open-in-view: false
+  # Configuração Flyway - Migration
+  flyway:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE:postgres}?createDatabaseIfNotExist=true
+    user: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWD:postgres}
+    schemas:
+      - ${DATABASE:projeto_social}
