@@ -12,4 +12,6 @@ CREATE TABLE IF NOT EXISTS projeto_social.usuario (
     FOREIGN KEY (id_perfil_permissao)
     REFERENCES projeto_social.perfil_permissao (id)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION);
+
+CREATE SEQUENCE projeto_social.sequence_usuario START 1;

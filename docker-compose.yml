@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgres-tcs:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    container_name: 'postgres-tcs'
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U projeto_social"]
+      interval: 50s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: projeto_social
+volumes:
+  pg-data:
