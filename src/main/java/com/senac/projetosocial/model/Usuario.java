@@ -1,5 +1,6 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_usuario")
-    @SequenceGenerator(name = "sequence_usuario", sequenceName = "usuario_seq")
+    @SequenceGenerator(name = "sequence_usuario", sequenceName = "usuario_seq", allocationSize = 1)
     private Long id;
 
     @NotNull(message = "O campo nome não pode ser nulo")
@@ -46,7 +47,7 @@ public class Usuario {
 
     @NotNull(message = "O campo status não pode ser nulo")
     @Column(name = "status", length = 1)
-    private Status status;
+    private StatusEnum status;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_perfil_permissao")
@@ -54,10 +55,6 @@ public class Usuario {
     private PerfilPermissao perfilPermissao;
 
 
-    public enum Status {
-        ATIVO,
-        INATIVO
-    }
 
 
 }

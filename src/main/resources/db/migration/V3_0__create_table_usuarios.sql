@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS projeto_social.usuario (
   password VARCHAR(100) NOT NULL,
   confirmPassword VARCHAR(100) NOT NULL,
   dh_cadastro TIMESTAMP NOT NULL,
-  status VARCHAR(1) NOT NULL,
+  status INT NOT NULL,
   id_perfil_permissao INTEGER NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_usuario_perfil_permissao
@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS projeto_social.usuario (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE SEQUENCE projeto_social.sequence_usuario START 1;
+CREATE SEQUENCE projeto_social.sequence_usuario START 1 increment 1;

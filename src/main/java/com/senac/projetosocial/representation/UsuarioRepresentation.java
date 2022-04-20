@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.Usuario;
 import lombok.Builder;
@@ -52,7 +53,7 @@ public interface UsuarioRepresentation {
         private String password;
         private String confirmPassword;
         private LocalDateTime dataHoraCadastro;
-        private Usuario.Status status;
+        private StatusEnum status;
         private PerfilPermissao perfilPermissao;
 
         public static Detail from(Usuario usuario) {

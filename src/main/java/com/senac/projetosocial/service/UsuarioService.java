@@ -1,6 +1,7 @@
 package com.senac.projetosocial.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exeptions.BusinessExeption;
 import com.senac.projetosocial.exeptions.NotFoundException;
 import com.senac.projetosocial.model.PerfilPermissao;
@@ -31,7 +32,7 @@ public class UsuarioService {
                 .password(createOrUpdate.getPassword())
                 .confirmPassword(createOrUpdate.getConfirmPassword())
                 .dataHoraCadastro(LocalDateTime.now())
-                .status(Usuario.Status.ATIVO)
+                .status(StatusEnum.ATIVO)
                 .perfilPermissao(perfilPermissao)
                 .build();
 
@@ -46,7 +47,7 @@ public class UsuarioService {
                 .email(createOrUpdate.getEmail())
                 .password(createOrUpdate.getPassword())
                 .confirmPassword(createOrUpdate.getConfirmPassword())
-                .status(Usuario.Status.ATIVO)
+                .status(StatusEnum.ATIVO)
                 .perfilPermissao(perfilPermissao)
                 .build();
 
@@ -56,14 +57,14 @@ public class UsuarioService {
     public Usuario getUsuario(Long id) {
         BooleanExpression filter =
                 QUsuario.usuario.id.eq(id)
-                        .and(QUsuario.usuario.status.eq(Usuario.Status.ATIVO));
+                        .and(QUsuario.usuario.status.eq(StatusEnum.ATIVO));
         return this.usuarioRepository.findOne(filter)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
 
     public void deleteUsuario(Long id) {
         Usuario usuario = this.getUsuario(id);
-        usuario.setStatus(Usuario.Status.INATIVO);
+        usuario.setStatus(StatusEnum.INATIVO);
         this.usuarioRepository.save(usuario);
     }
 
