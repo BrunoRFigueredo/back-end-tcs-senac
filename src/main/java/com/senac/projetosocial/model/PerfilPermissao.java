@@ -1,7 +1,9 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.util.CustomStringArrayType;
 import lombok.*;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -15,7 +17,7 @@ public class PerfilPermissao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_perfil_permissao")
-    @SequenceGenerator(name = "sequence_perfil_permissao", sequenceName = "perf_seq")
+    @SequenceGenerator(name = "sequence_perfil_permissao", sequenceName = "perf_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "perfil", length = 50)

@@ -20,11 +20,11 @@ public class CustomStringArrayType implements UserType {
     }
 
     public boolean equals(Object o, Object o1) throws HibernateException {
-        return false;
+        return o.equals(o1);
     }
 
     public int hashCode(Object o) throws HibernateException {
-        return 0;
+        return o == null ? 0 : o.hashCode();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CustomStringArrayType implements UserType {
     }
 
     public Object deepCopy(Object o) throws HibernateException {
-        return null;
+        return o;
     }
 
     public boolean isMutable() {
@@ -54,15 +54,14 @@ public class CustomStringArrayType implements UserType {
     }
 
     public Serializable disassemble(Object o) throws HibernateException {
-        return null;
+        return (Serializable) o;
     }
 
     public Object assemble(Serializable serializable, Object o) throws HibernateException {
-        return null;
+        return serializable;
     }
 
     public Object replace(Object o, Object o1, Object o2) throws HibernateException {
-        return null;
+        return o;
     }
-    //implement equals, hashCode, and other methods
 }
