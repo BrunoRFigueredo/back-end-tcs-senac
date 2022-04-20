@@ -1,10 +1,12 @@
 spring:
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   # Configura�ao do banco de dados
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/projeto_social
     username: postgres
-    password: postgres
+    password: admin
   # Configura�ao do JPA
   jpa:
     hibernate:
@@ -15,12 +17,13 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: false
+    generate-ddl: true
     open-in-view: false
   # Configura��o Flyway - Migration
   flyway:
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE:postgres}?createDatabaseIfNotExist=true
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE:projeto_social}?createDatabaseIfNotExist=true
     user: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWD:postgres}
+    password: ${DATABASE_PASSWD:admin}
     schemas:
       - ${DATABASE:projeto_social}
+    baseline-on-migrate: true
