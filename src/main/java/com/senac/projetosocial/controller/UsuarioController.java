@@ -46,6 +46,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity deletePerfilPermissao(@PathVariable("id") Long id) {
         this.usuarioService.deleteUsuario(id);
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

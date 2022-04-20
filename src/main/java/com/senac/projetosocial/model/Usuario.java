@@ -49,7 +49,7 @@ public class Usuario {
     @Column(name = "status", length = 1)
     private StatusEnum status;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_perfil_permissao")
     @NotNull(message = "O campo perfil não pode ser nulo")
     private PerfilPermissao perfilPermissao;
