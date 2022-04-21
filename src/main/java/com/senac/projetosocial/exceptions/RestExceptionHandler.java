@@ -1,4 +1,4 @@
-package com.senac.projetosocial.exeptions;
+package com.senac.projetosocial.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

@@ -1,6 +1,6 @@
 package com.senac.projetosocial.service;
 
-import com.senac.projetosocial.exeptions.NotFoundException;
+import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.repository.PerfilPermissaoRepository;
 import com.senac.projetosocial.representation.PerfilPermissaoRepresentation;

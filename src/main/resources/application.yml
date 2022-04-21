@@ -17,7 +17,7 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: true
+    generate-ddl: false
     open-in-view: false
   # Configura��o Flyway - Migration
   flyway:

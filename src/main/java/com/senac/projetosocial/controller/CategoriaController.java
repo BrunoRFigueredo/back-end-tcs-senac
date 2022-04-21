@@ -1,7 +1,12 @@
-package com.senac.projetosocial.categoria;
+package com.senac.projetosocial.controller;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.model.Categoria;
+import com.senac.projetosocial.model.QCategoria;
+import com.senac.projetosocial.repository.CategoriaRepository;
+import com.senac.projetosocial.representation.CategoriaRepresentation;
+import com.senac.projetosocial.service.CategoriaService;
 import com.senac.projetosocial.util.Paginacao;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

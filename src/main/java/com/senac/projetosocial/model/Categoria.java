@@ -1,4 +1,4 @@
-package com.senac.projetosocial.categoria;
+package com.senac.projetosocial.model;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@Entity(name = "CATEGORIAS")
+@Entity(name = "CATEGORIA")
 public class Categoria {
 
     @Id

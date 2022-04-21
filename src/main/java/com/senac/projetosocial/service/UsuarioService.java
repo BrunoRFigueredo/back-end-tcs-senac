@@ -2,8 +2,8 @@ package com.senac.projetosocial.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
-import com.senac.projetosocial.exeptions.BusinessExeption;
-import com.senac.projetosocial.exeptions.NotFoundException;
+import com.senac.projetosocial.exceptions.BusinessExeption;
+import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;

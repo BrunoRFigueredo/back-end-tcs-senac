@@ -1,11 +1,10 @@
-package com.senac.projetosocial.categoria;
+package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.model.Categoria;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;

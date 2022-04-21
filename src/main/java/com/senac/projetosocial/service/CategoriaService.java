@@ -1,13 +1,13 @@
-package com.senac.projetosocial.categoria;
+package com.senac.projetosocial.service;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.senac.projetosocial.exception.NotFoundException;
+import com.senac.projetosocial.exceptions.NotFoundException;
+import com.senac.projetosocial.model.Categoria;
+import com.senac.projetosocial.model.QCategoria;
+import com.senac.projetosocial.repository.CategoriaRepository;
+import com.senac.projetosocial.representation.CategoriaRepresentation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
