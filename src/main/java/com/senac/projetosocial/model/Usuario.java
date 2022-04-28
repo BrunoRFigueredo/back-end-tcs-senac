@@ -18,7 +18,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_usuario")
-    @SequenceGenerator(name = "sequence_usuario", sequenceName = "usuario_seq", allocationSize = 1)
+    @SequenceGenerator(name = "sequence_usuario", sequenceName = "sequence_usuario", allocationSize = 1)
     private Long id;
 
     @NotNull(message = "O campo nome não pode ser nulo")
@@ -33,13 +33,13 @@ public class Usuario {
 
     @NotNull(message = "O campo senha não pode ser nulo")
     @Size(min = 1, max = 100, message = "O campo senha deve ter entre 1 a 100 caracteres")
-    @Column(name = "password", length = 100)
-    private String password;
+    @Column(name = "senha", length = 100)
+    private String senha;
 
     @NotNull(message = "O campo confirmação da senha não pode ser nulo")
     @Size(min = 1, max = 100, message = "O campo confirmação da senha deve ter entre 1 a 100 caracteres")
-    @Column(name = "confirmpassword", length = 100)
-    private String confirmPassword;
+    @Column(name = "confirmar_senha", length = 100)
+    private String confirmarSenha;
 
     @NotNull(message = "O campo data do cadastro não pode ser nulo")
     @Column(name = "dh_cadastro")

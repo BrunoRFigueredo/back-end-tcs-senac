@@ -13,35 +13,35 @@ public class PerfilPermissaoService {
 
     private final PerfilPermissaoRepository perfilPermissaoRepository;
 
-    public PerfilPermissao salvar(PerfilPermissaoRepresentation.CreateOrUpdate createOrUpdate) {
+    public PerfilPermissao salvarPerfilPermissao(PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
         PerfilPermissao perfilPermissao = PerfilPermissao.builder()
-                .perfil(createOrUpdate.getPerfil())
-                .permissao(createOrUpdate.getPermissao())
+                .perfil(criarOuAtualizar.getPerfil())
+                .permissao(criarOuAtualizar.getPermissao())
                 .build();
 
         return this.perfilPermissaoRepository.save(perfilPermissao);
     }
 
 
-    public PerfilPermissao update(Long id, PerfilPermissaoRepresentation.CreateOrUpdate createOrUpdate) {
-        PerfilPermissao perfilPermissaoAntigo = this.getPerfilPermissao(id);
+    public PerfilPermissao atualizarPerfilPermissao(Long id, PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
+        PerfilPermissao perfilPermissaoAntigo = this.buscarPerfilPermissao(id);
         PerfilPermissao perfilPermissaoAtualizado = perfilPermissaoAntigo.toBuilder()
-                .perfil(createOrUpdate.getPerfil())
-                .permissao(createOrUpdate.getPermissao())
+                .perfil(criarOuAtualizar.getPerfil())
+                .permissao(criarOuAtualizar.getPermissao())
                 .build();
 
         return this.perfilPermissaoRepository.save(perfilPermissaoAtualizado);
     }
 
-    public Iterable<PerfilPermissao> getAllPerfilPermissao() {
+    public Iterable<PerfilPermissao> buscarPerfilPermissoes() {
         return this.perfilPermissaoRepository.findAll();
     }
 
-    public PerfilPermissao getPerfilPermissao(Long id) {
+    public PerfilPermissao buscarPerfilPermissao(Long id) {
         return this.perfilPermissaoRepository.findById(id).orElseThrow(() -> new NotFoundException("Perfil não encontrado."));
     }
 
-    public void deletePerfilPermissao(Long id) {
+    public void deletarPerfilPermissao(Long id) {
         this.perfilPermissaoRepository.deleteById(id);
     }
 

@@ -19,36 +19,36 @@ public class PerfilPermissaoController {
     private final PerfilPermissaoService perfilPermissaoService;
 
     @PostMapping
-    public ResponseEntity<PerfilPermissao> cadastrarPerfilPermissao(@Valid @RequestBody PerfilPermissaoRepresentation.CreateOrUpdate createOrUpdate) {
+    public ResponseEntity<PerfilPermissao> cadastrarPerfilPermissao(@Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.perfilPermissaoService.salvar(createOrUpdate));
+                .body(this.perfilPermissaoService.salvarPerfilPermissao(criarOuAtualizar));
     }
 
 
     @GetMapping
-    public ResponseEntity<Iterable<PerfilPermissao>> getAllPerfilPermissao() {
-        return ResponseEntity.ok(this.perfilPermissaoService.getAllPerfilPermissao());
+    public ResponseEntity<Iterable<PerfilPermissao>> buscarPerfilPermissoes() {
+        return ResponseEntity.ok(this.perfilPermissaoService.buscarPerfilPermissoes());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PerfilPermissao> getOnePerfilPermissao(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.perfilPermissaoService.getPerfilPermissao(id));
+    public ResponseEntity<PerfilPermissao> buscarPerfilPermissao(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.perfilPermissaoService.buscarPerfilPermissao(id));
     }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<PerfilPermissao> atualizaPerfilPermissao(@PathVariable("id") Long id,
-                                                                        @Valid @RequestBody PerfilPermissaoRepresentation.CreateOrUpdate createOrUpdate) {
+                                                                        @Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
 
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.perfilPermissaoService.update(id, createOrUpdate));
+                .body(this.perfilPermissaoService.atualizarPerfilPermissao(id, criarOuAtualizar));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePerfilPermissao(@PathVariable("id") Long id) {
-        this.perfilPermissaoService.deletePerfilPermissao(id);
+    public ResponseEntity deletarPerfilPermissao(@PathVariable("id") Long id) {
+        this.perfilPermissaoService.deletarPerfilPermissao(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

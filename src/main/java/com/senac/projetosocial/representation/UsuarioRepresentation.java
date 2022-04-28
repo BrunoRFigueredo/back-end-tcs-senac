@@ -19,7 +19,7 @@ public interface UsuarioRepresentation {
     @Data
     @Getter
     @Setter
-    class CreateOrUpdate {
+    class CriarOuAtualizar {
 
         @NotNull(message = "O campo nome não pode ser nulo")
         @Size(min = 1, max = 100, message = "O campo nome deve ter entre 1 a 100 caracteres")
@@ -31,11 +31,11 @@ public interface UsuarioRepresentation {
 
         @NotNull(message = "O campo senha não pode ser nulo")
         @Size(min = 1, max = 100, message = "O campo senha deve ter entre 1 a 100 caracteres")
-        private String password;
+        private String senha;
 
         @NotNull(message = "O campo confirmação da senha não pode ser nulo")
         @Size(min = 1, max = 100, message = "O campo confirmação da senha deve ter entre 1 a 100 caracteres")
-        private String confirmPassword;
+        private String confirmarSenha;
 
         @NotNull(message = "O perfil é obrigatório")
         private Long perfilPermissao;
@@ -50,18 +50,19 @@ public interface UsuarioRepresentation {
         private Long id;
         private String nome;
         private String email;
-        private String password;
-        private String confirmPassword;
+        private String senha;
+        private String confirmarSenha;
         private LocalDateTime dataHoraCadastro;
         private StatusEnum status;
         private PerfilPermissao perfilPermissao;
 
         public static Detail from(Usuario usuario) {
             return Detail.builder()
+                    .id(usuario.getId())
                     .nome(usuario.getNome())
                     .email(usuario.getEmail())
-                    .password(usuario.getPassword())
-                    .confirmPassword(usuario.getConfirmPassword())
+                    .senha(usuario.getSenha())
+                    .confirmarSenha(usuario.getConfirmarSenha())
                     .dataHoraCadastro(usuario.getDataHoraCadastro())
                     .status(usuario.getStatus())
                     .perfilPermissao(usuario.getPerfilPermissao())

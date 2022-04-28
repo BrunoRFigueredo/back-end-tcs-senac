@@ -12,7 +12,7 @@ public interface PerfilPermissaoRepresentation {
     @Data
     @Getter
     @Setter
-    class CreateOrUpdate {
+    class CriarOuAtualizar {
 
         @NotNull(message = "O campo perfil não pode ser nulo")
         @Size(min = 1, max = 50, message = "O campo perfil deve ter entre 1 e 50 caracteres")

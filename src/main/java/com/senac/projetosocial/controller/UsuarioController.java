@@ -21,30 +21,30 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final PerfilPermissaoService perfilPermissaoService;
 
-    @PostMapping
-    public ResponseEntity<Usuario> cadastrarUsuario(@Valid @RequestBody UsuarioRepresentation.CreateOrUpdate createOrUpdate) {
-        PerfilPermissao perfilPermissao = this.perfilPermissaoService.getPerfilPermissao(createOrUpdate.getPerfilPermissao());
+    @PostMapping("/")
+    public ResponseEntity<Usuario> cadastrarUsuario(@Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+        PerfilPermissao perfilPermissao = this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.usuarioService.salvar(createOrUpdate, perfilPermissao));
+                .body(this.usuarioService.salvar(criarOuAtualizar, perfilPermissao));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioRepresentation.Detail> getOneUsuario(@PathVariable("id") Long id) {
+    public ResponseEntity<UsuarioRepresentation.Detail> buscarUsuario(@PathVariable("id") Long id) {
         return ResponseEntity.ok(UsuarioRepresentation.Detail.from(this.usuarioService.getUsuario(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioRepresentation.Detail> atualizaPerfilPermissao(@PathVariable("id") Long id,
-                                                                   @Valid @RequestBody UsuarioRepresentation.CreateOrUpdate createOrUpdate) {
-        PerfilPermissao perfilPermissao = this.perfilPermissaoService.getPerfilPermissao(createOrUpdate.getPerfilPermissao());
+                                                                   @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+        PerfilPermissao perfilPermissao = this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(UsuarioRepresentation.Detail.from(this.usuarioService.update(id, createOrUpdate, perfilPermissao)));
+                .body(UsuarioRepresentation.Detail.from(this.usuarioService.update(id, criarOuAtualizar, perfilPermissao)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePerfilPermissao(@PathVariable("id") Long id) {
+    public ResponseEntity deletarPerfilPermissao(@PathVariable("id") Long id) {
         this.usuarioService.deleteUsuario(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

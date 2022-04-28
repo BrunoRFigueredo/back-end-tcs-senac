@@ -29,14 +29,14 @@ public class ServicoService {
                 .orElseThrow(()-> new NotFoundException("Serviço " + id + " não encontrado."));
     }
     public Servico atualizarServico(Long id, ServicoRepresentation.CriarOuAtualizar criarOuAtualizar){
-        Servico oldServico = this.buscarServico(id);
+        Servico antigoServico = this.buscarServico(id);
 
-        Servico newServico = oldServico.toBuilder()
+        Servico novoServico = antigoServico.toBuilder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
                 .build();
 
-        return this.servicoRepository.save(newServico);
+        return this.servicoRepository.save(novoServico);
     }
     public void deletarServico(Long id){
         Servico servico = this.buscarServico(id);
