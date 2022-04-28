@@ -20,17 +20,17 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public Usuario salvar(UsuarioRepresentation.CreateOrUpdate createOrUpdate, PerfilPermissao perfilPermissao) {
+    public Usuario salvar(UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar, PerfilPermissao perfilPermissao) {
 
-        if (!createOrUpdate.getPassword().equals(createOrUpdate.getConfirmPassword())) {
+        if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
             throw new BusinessExeption("A senha não confere com a confirmação da senha");
         }
 
         Usuario usuario = Usuario.builder()
-                .nome(createOrUpdate.getNome())
-                .email(createOrUpdate.getEmail())
-                .password(createOrUpdate.getPassword())
-                .confirmPassword(createOrUpdate.getConfirmPassword())
+                .nome(criarOuAtualizar.getNome())
+                .email(criarOuAtualizar.getEmail())
+                .senha(criarOuAtualizar.getSenha())
+                .confirmarSenha(criarOuAtualizar.getConfirmarSenha())
                 .dataHoraCadastro(LocalDateTime.now())
                 .status(StatusEnum.ATIVO)
                 .perfilPermissao(perfilPermissao)
@@ -39,14 +39,14 @@ public class UsuarioService {
         return this.usuarioRepository.save(usuario);
     }
 
-    public Usuario update(Long id, UsuarioRepresentation.CreateOrUpdate createOrUpdate, PerfilPermissao perfilPermissao) {
+    public Usuario update(Long id, UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar, PerfilPermissao perfilPermissao) {
         Usuario usuarioAntigo = this.getUsuario(id);
         Usuario usuarioAtualizado = usuarioAntigo.toBuilder()
-                .nome(createOrUpdate.getNome())
-                .nome(createOrUpdate.getNome())
-                .email(createOrUpdate.getEmail())
-                .password(createOrUpdate.getPassword())
-                .confirmPassword(createOrUpdate.getConfirmPassword())
+                .nome(criarOuAtualizar.getNome())
+                .nome(criarOuAtualizar.getNome())
+                .email(criarOuAtualizar.getEmail())
+                .senha(criarOuAtualizar.getSenha())
+                .confirmarSenha(criarOuAtualizar.getConfirmarSenha())
                 .status(StatusEnum.ATIVO)
                 .perfilPermissao(perfilPermissao)
                 .build();

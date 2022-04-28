@@ -29,7 +29,7 @@ public class CategoriaController {
     private CategoriaRepository categoriaRepository;
 
     @PostMapping("/")
-    public ResponseEntity<CategoriaRepresentation.Detalhe> criarCategoria(
+    public ResponseEntity<CategoriaRepresentation.Detalhe> cadastrarCategoria(
             @Valid @RequestBody CategoriaRepresentation.CriarOuAtualizar criarOuAtualizar){
         return ResponseEntity
                 .status(HttpStatus.CREATED)

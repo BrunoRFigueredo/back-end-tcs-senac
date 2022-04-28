@@ -30,15 +30,15 @@ public class CategoriaService {
     }
 
     public Categoria atualizarCategoria(Long id, CategoriaRepresentation.CriarOuAtualizar criarOuAtualizar){
-        Categoria oldCategoria = this.buscarCategoria(id);
+        Categoria antigaCategoria = this.buscarCategoria(id);
 
-        Categoria newCategoria = oldCategoria.toBuilder()
-                .nome(criarOuAtualizar.getNome() == null ? oldCategoria.getNome() : criarOuAtualizar.getNome())
-                .descricao(criarOuAtualizar.getDescricao() == null ? oldCategoria.getDescricao() : criarOuAtualizar.getDescricao())
+        Categoria novaCategoria = antigaCategoria.toBuilder()
+                .nome(criarOuAtualizar.getNome() == null ? antigaCategoria.getNome() : criarOuAtualizar.getNome())
+                .descricao(criarOuAtualizar.getDescricao() == null ? antigaCategoria.getDescricao() : criarOuAtualizar.getDescricao())
                 .status(Categoria.Status.ATIVO)
                 .build();
 
-        return this.categoriaRepository.save(newCategoria);
+        return this.categoriaRepository.save(novaCategoria);
     }
 
     public void deletarCategoria(Long id){

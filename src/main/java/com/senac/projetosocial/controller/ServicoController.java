@@ -29,7 +29,7 @@ public class ServicoController {
     private ServicoRepository servicoRepository;
 
     @PostMapping("/")
-    public ResponseEntity<ServicoRepresentation.Detalhe> criarServico(
+    public ResponseEntity<ServicoRepresentation.Detalhe> cadastrarServico(
         @Valid @RequestBody ServicoRepresentation.CriarOuAtualizar criarOuAtualizar){
 
         return ResponseEntity
