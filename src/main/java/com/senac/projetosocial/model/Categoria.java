@@ -1,5 +1,6 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Categoria {
 
     @Column(name = "nome")
     @NotNull(message = "O nome da categoria não pode ser nula")
-    @Size(max = 45, min = 1, message = "O nome da descrição deve conter entre 45 e 1 caracter")
+    @Size(max = 45, min = 1, message = "O nome da categoria deve conter entre 45 e 1 caracter")
     private String nome;
 
     @Column(name = "descricao")
@@ -31,10 +32,7 @@ public class Categoria {
 
     @Column(name = "status")
     @NotNull(message = "O status da categoria não pode ser nula")
-    private Status status;
+    private StatusEnum status;
 
-    public enum Status{
-        INATIVO,
-        ATIVO
-    }
+
 }

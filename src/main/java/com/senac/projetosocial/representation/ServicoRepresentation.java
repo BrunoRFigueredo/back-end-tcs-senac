@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Servico;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +34,7 @@ public interface ServicoRepresentation {
         private Long id;
         private String nome;
         private String descricao;
-        private Servico.Status status;
+        private StatusEnum status;
 
         public static Detalhe from (Servico servico){
             return Detalhe.builder()

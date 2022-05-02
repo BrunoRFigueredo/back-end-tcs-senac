@@ -1,6 +1,7 @@
 package com.senac.projetosocial.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.Categoria;
 import com.senac.projetosocial.model.QCategoria;
@@ -18,12 +19,12 @@ public class CategoriaService {
         return this.categoriaRepository.save(Categoria.builder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
-                .status(Categoria.Status.ATIVO)
+                .status(StatusEnum.ATIVO)
                 .build());
     }
     public Categoria buscarCategoria(Long id){
         BooleanExpression filtro = QCategoria.categoria.id.eq(id)
-                .and(QCategoria.categoria.status.eq(Categoria.Status.ATIVO));
+                .and(QCategoria.categoria.status.eq(StatusEnum.ATIVO));
 
             return this.categoriaRepository.findOne(filtro)
                     .orElseThrow(() -> new NotFoundException("Categoria " + id + " não encontrada!"));
@@ -35,7 +36,7 @@ public class CategoriaService {
         Categoria novaCategoria = antigaCategoria.toBuilder()
                 .nome(criarOuAtualizar.getNome() == null ? antigaCategoria.getNome() : criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao() == null ? antigaCategoria.getDescricao() : criarOuAtualizar.getDescricao())
-                .status(Categoria.Status.ATIVO)
+                .status(StatusEnum.ATIVO)
                 .build();
 
         return this.categoriaRepository.save(novaCategoria);
@@ -43,7 +44,7 @@ public class CategoriaService {
 
     public void deletarCategoria(Long id){
         Categoria categoria = this.buscarCategoria(id);
-        categoria.setStatus(Categoria.Status.INATIVO);
+        categoria.setStatus(StatusEnum.INATIVO);
         this.categoriaRepository.save(categoria);
     }
 }
