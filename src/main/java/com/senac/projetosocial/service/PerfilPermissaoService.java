@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class PerfilPermissaoService {
-
     private final PerfilPermissaoRepository perfilPermissaoRepository;
 
     public PerfilPermissao salvarPerfilPermissao(PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
@@ -21,7 +20,6 @@ public class PerfilPermissaoService {
 
         return this.perfilPermissaoRepository.save(perfilPermissao);
     }
-
 
     public PerfilPermissao atualizarPerfilPermissao(Long id, PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
         PerfilPermissao perfilPermissaoAntigo = this.buscarPerfilPermissao(id);
@@ -42,6 +40,7 @@ public class PerfilPermissaoService {
     }
 
     public void deletarPerfilPermissao(Long id) {
+        this.buscarPerfilPermissao(id);
         this.perfilPermissaoRepository.deleteById(id);
     }
 

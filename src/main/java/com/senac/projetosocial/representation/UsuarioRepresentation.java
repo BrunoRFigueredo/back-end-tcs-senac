@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.security.acl.Permission;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,6 +92,26 @@ public interface UsuarioRepresentation {
                     .map(Lista::from)
                     .collect(Collectors.toList());
         }
+    }
+    @Data
+    @Getter
+    @Builder
+    class UsuarioToken{
+        private Long id;
+        private String nome;
+        private String email;
+        private PerfilPermissao perfilPermissao;
+
+        public static UsuarioToken from(Usuario usuario){
+            return UsuarioToken.builder()
+                    .id(usuario.getId())
+                    .nome(usuario.getNome())
+                    .email(usuario.getEmail())
+                    .perfilPermissao(usuario.getPerfilPermissao())
+                    .build();
+        }
+
+
     }
 
 }
