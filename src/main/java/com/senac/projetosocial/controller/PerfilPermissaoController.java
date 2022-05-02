@@ -15,17 +15,16 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @CrossOrigin("*")
 public class PerfilPermissaoController {
-
     private final PerfilPermissaoService perfilPermissaoService;
 
-    @PostMapping
-    public ResponseEntity<PerfilPermissao> cadastrarPerfilPermissao(@Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
+    @PostMapping("/")
+    public ResponseEntity<PerfilPermissao> cadastrarPerfilPermissao(
+        @Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.perfilPermissaoService.salvarPerfilPermissao(criarOuAtualizar));
     }
 
-
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Iterable<PerfilPermissao>> buscarPerfilPermissoes() {
         return ResponseEntity.ok(this.perfilPermissaoService.buscarPerfilPermissoes());
     }
@@ -35,12 +34,9 @@ public class PerfilPermissaoController {
         return ResponseEntity.ok(this.perfilPermissaoService.buscarPerfilPermissao(id));
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<PerfilPermissao> atualizaPerfilPermissao(@PathVariable("id") Long id,
-                                                                        @Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
-
-
+        @Valid @RequestBody PerfilPermissaoRepresentation.CriarOuAtualizar criarOuAtualizar) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.perfilPermissaoService.atualizarPerfilPermissao(id, criarOuAtualizar));
@@ -51,6 +47,4 @@ public class PerfilPermissaoController {
         this.perfilPermissaoService.deletarPerfilPermissao(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-
 }

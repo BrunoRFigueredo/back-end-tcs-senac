@@ -5,50 +5,55 @@ import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exceptions.BusinessExeption;
 import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.PerfilPermissao;
+import com.senac.projetosocial.model.QPerfilPermissao;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
+import com.senac.projetosocial.repository.PerfilPermissaoRepository;
 import com.senac.projetosocial.repository.UsuarioRepository;
+import com.senac.projetosocial.representation.LoginRepresentation;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.token.TokenService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder bCryptPassword;
+    private PerfilPermissaoRepository perfilPermissaoRepository;
+    private PerfilPermissaoService perfilPermissaoService;
 
-    public Usuario salvar(UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar, PerfilPermissao perfilPermissao) {
+    public Usuario criarUsuario(UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
 
-        if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
-            throw new BusinessExeption("A senha não confere com a confirmação da senha");
-        }
-
-        Usuario usuario = Usuario.builder()
+        Usuario novoUsuario = Usuario.builder()
                 .nome(criarOuAtualizar.getNome())
                 .email(criarOuAtualizar.getEmail())
-                .senha(criarOuAtualizar.getSenha())
-                .confirmarSenha(criarOuAtualizar.getConfirmarSenha())
+                .senha(this.bCryptPassword.encode(criarOuAtualizar.getSenha()))
+                .confirmarSenha(this.bCryptPassword.encode(criarOuAtualizar.getConfirmarSenha()))
                 .dataHoraCadastro(LocalDateTime.now())
                 .status(StatusEnum.ATIVO)
-                .perfilPermissao(perfilPermissao)
+                .perfilPermissao(this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao()))
                 .build();
 
-        return this.usuarioRepository.save(usuario);
+        return this.usuarioRepository.save(novoUsuario);
     }
 
-    public Usuario update(Long id, UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar, PerfilPermissao perfilPermissao) {
+    public Usuario update(Long id, UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
         Usuario usuarioAntigo = this.getUsuario(id);
         Usuario usuarioAtualizado = usuarioAntigo.toBuilder()
                 .nome(criarOuAtualizar.getNome())
                 .nome(criarOuAtualizar.getNome())
                 .email(criarOuAtualizar.getEmail())
-                .senha(criarOuAtualizar.getSenha())
-                .confirmarSenha(criarOuAtualizar.getConfirmarSenha())
+                .senha(this.bCryptPassword.encode(criarOuAtualizar.getSenha()))
+                .confirmarSenha(this.bCryptPassword.encode(criarOuAtualizar.getConfirmarSenha()))
                 .status(StatusEnum.ATIVO)
-                .perfilPermissao(perfilPermissao)
+                .perfilPermissao(this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao()))
                 .build();
 
         return this.usuarioRepository.save(usuarioAtualizado);
