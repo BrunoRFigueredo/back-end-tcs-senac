@@ -2,6 +2,7 @@ package com.senac.projetosocial.controller;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.QServico;
 import com.senac.projetosocial.model.Servico;
 import com.senac.projetosocial.repository.ServicoRepository;
@@ -48,8 +49,8 @@ public class ServicoController {
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina){
 
         BooleanExpression filtro = Objects.isNull(filtroURI) ?
-                QServico.servico.status.eq(Servico.Status.ATIVO) :
-                QServico.servico.status.eq(Servico.Status.ATIVO)
+                QServico.servico.status.eq(StatusEnum.ATIVO) :
+                QServico.servico.status.eq(StatusEnum.ATIVO)
                         .and(filtroURI);
 
         Pageable pagina = PageRequest.of(numeroPagina, tamanhoPagina);

@@ -1,5 +1,6 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,10 +31,6 @@ public class Servico {
 
     @Column(name= "status")
     @NotNull(message = "O status do serviço não pode ser nulo")
-    private Status status;
+    private StatusEnum status;
 
-    public enum Status{
-        INATIVO,
-        ATIVO
-    }
 }

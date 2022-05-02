@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Categoria;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,7 @@ public interface CategoriaRepresentation {
         private Long id;
         private String nome;
         private String descricao;
-        private Categoria.Status status;
+        private StatusEnum status;
 
         public static Detalhe from (Categoria categoria){
             return Detalhe.builder()

@@ -1,6 +1,7 @@
 package com.senac.projetosocial.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.QServico;
 import com.senac.projetosocial.model.Servico;
@@ -18,11 +19,11 @@ public class ServicoService {
         return this.servicoRepository.save(Servico.builder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
-                .status(Servico.Status.ATIVO)
+                .status(StatusEnum.ATIVO)
                 .build());
     }
     public Servico buscarServico(Long id){
-        BooleanExpression filtro = QServico.servico.status.eq(Servico.Status.ATIVO)
+        BooleanExpression filtro = QServico.servico.status.eq(StatusEnum.ATIVO)
                 .and(QServico.servico.id.eq(id));
 
         return this.servicoRepository.findOne(filtro)
@@ -40,7 +41,7 @@ public class ServicoService {
     }
     public void deletarServico(Long id){
         Servico servico = this.buscarServico(id);
-        servico.setStatus(Servico.Status.INATIVO);
+        servico.setStatus(StatusEnum.INATIVO);
         this.servicoRepository.save(servico);
     }
 
