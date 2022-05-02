@@ -56,4 +56,18 @@ public class RestExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorPayload handleUnauthorized(Exception exception, HttpServletRequest request) {
+
+        return ErrorPayload.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .error(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+                .message(exception.getMessage())
+                .path(request.getContextPath() + request.getServletPath())
+                .build();
+    }
+
 }

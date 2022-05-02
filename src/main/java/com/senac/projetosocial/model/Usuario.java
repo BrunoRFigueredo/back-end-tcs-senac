@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "usuario")
 @Getter
@@ -53,8 +54,4 @@ public class Usuario {
     @JoinColumn(name = "id_perfil_permissao")
     @NotNull(message = "O campo perfil não pode ser nulo")
     private PerfilPermissao perfilPermissao;
-
-
-
-
 }

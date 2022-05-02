@@ -1,7 +1,12 @@
 package com.senac.projetosocial.controller;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.senac.projetosocial.exceptions.BusinessExeption;
+import com.senac.projetosocial.exceptions.UnprocessableEntityException;
 import com.senac.projetosocial.model.PerfilPermissao;
+import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
+import com.senac.projetosocial.repository.UsuarioRepository;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
 import com.senac.projetosocial.service.PerfilPermissaoService;
 import com.senac.projetosocial.service.UsuarioService;
@@ -11,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
@@ -19,14 +25,24 @@ import javax.validation.Valid;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final UsuarioRepository usuarioRepository;
     private final PerfilPermissaoService perfilPermissaoService;
 
-    @PostMapping("/")
-    public ResponseEntity<Usuario> cadastrarUsuario(@Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
-        PerfilPermissao perfilPermissao = this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao());
+    @PostMapping("/criar-usuario")
+    public ResponseEntity<Usuario> cadastrarUsuario(
+        @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+        BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.usuarioService.salvar(criarOuAtualizar, perfilPermissao));
+        List<Usuario> usuario = this.usuarioRepository.findAll(filtro);
+
+        if (usuario.size() >= 1) {
+            throw new BusinessExeption("Já existe um usuário cadatro com este email");
+        } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
+            throw new BusinessExeption("A senha está diferente da confirmaçao de senha");
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(this.usuarioService.criarUsuario(criarOuAtualizar));
+        }
     }
 
     @GetMapping("/{id}")
@@ -36,11 +52,21 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioRepresentation.Detail> atualizaPerfilPermissao(@PathVariable("id") Long id,
-                                                                   @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
-        PerfilPermissao perfilPermissao = this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao());
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(UsuarioRepresentation.Detail.from(this.usuarioService.update(id, criarOuAtualizar, perfilPermissao)));
+        @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+
+        BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
+
+        List<Usuario> usuario = this.usuarioRepository.findAll(filtro);
+
+        if (usuario.size() >= 1){
+            throw  new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
+        } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
+            throw  new BusinessExeption("A senha está diferente da confirmação de senha!");
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(UsuarioRepresentation.Detail.from(this.usuarioService.update(id, criarOuAtualizar)));
+        }
     }
 
     @DeleteMapping("/{id}")
