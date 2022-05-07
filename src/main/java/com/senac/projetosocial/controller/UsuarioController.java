@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuario")
@@ -52,15 +53,19 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioRepresentation.Detail> atualizaPerfilPermissao(@PathVariable("id") Long id,
-        @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+                                                                                @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+        Usuario usuario = this.usuarioService.getUsuario(id);
 
-        BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
+        if (!usuario.getEmail().equals(criarOuAtualizar.getEmail())) {
+            BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
+            Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findOne(filtro);
 
-        List<Usuario> usuario = this.usuarioRepository.findAll(filtro);
+            if (usuarioAtualizado.isPresent()) {
+                throw  new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
+            }
+        }
 
-        if (usuario.size() >= 1){
-            throw  new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
-        } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
+        if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
             throw  new BusinessExeption("A senha está diferente da confirmação de senha!");
         } else {
             return ResponseEntity
