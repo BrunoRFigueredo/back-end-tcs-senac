@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final LoginService loginService;
 
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<LoginRepresentation.LoginResponse> login(@RequestBody LoginRepresentation.Login login){
         return ResponseEntity.ok(this.loginService.login(login));
     }
