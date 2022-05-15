@@ -55,7 +55,9 @@ public class Usuario {
     @NotNull(message = "O campo perfil não pode ser nulo")
     private PerfilPermissao perfilPermissao;
 
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_imagem")
+    private Imagem imagem;
 
 
 }
