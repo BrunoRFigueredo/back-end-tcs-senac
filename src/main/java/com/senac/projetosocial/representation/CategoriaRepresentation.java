@@ -51,11 +51,14 @@ public interface CategoriaRepresentation {
     class Lista{
         private Long id;
         private String nome;
+        private String descricao;
+
 
         private static Lista from (Categoria categoria){
             return Lista.builder()
                     .id(categoria.getId())
                     .nome(categoria.getNome())
+                    .descricao(categoria.getDescricao())
                     .build();
         }
         public static List<Lista> from(List<Categoria> categorias){

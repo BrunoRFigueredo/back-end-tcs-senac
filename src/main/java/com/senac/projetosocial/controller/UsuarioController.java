@@ -2,8 +2,6 @@ package com.senac.projetosocial.controller;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.exceptions.BusinessExeption;
-import com.senac.projetosocial.exceptions.UnprocessableEntityException;
-import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.repository.UsuarioRepository;
@@ -20,16 +18,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuario/")
 @AllArgsConstructor
 @CrossOrigin("*")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
-    private final PerfilPermissaoService perfilPermissaoService;
 
-    @PostMapping("/criar-usuario")
+    @PostMapping
     public ResponseEntity<Usuario> cadastrarUsuario(
         @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
         BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
@@ -38,7 +35,7 @@ public class UsuarioController {
 
         if (usuario.size() >= 1) {
             throw new BusinessExeption("Já existe um usuário cadatro com este email");
-        } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
+        } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
             throw new BusinessExeption("A senha está diferente da confirmaçao de senha");
         } else {
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -61,12 +58,12 @@ public class UsuarioController {
             Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findOne(filtro);
 
             if (usuarioAtualizado.isPresent()) {
-                throw  new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
+                throw new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
             }
         }
 
-        if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())){
-            throw  new BusinessExeption("A senha está diferente da confirmação de senha!");
+        if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
+            throw new BusinessExeption("A senha está diferente da confirmação de senha!");
         } else {
             return ResponseEntity
                     .status(HttpStatus.OK)
