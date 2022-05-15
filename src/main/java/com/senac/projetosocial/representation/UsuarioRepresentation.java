@@ -78,13 +78,11 @@ public interface UsuarioRepresentation {
     class Resumo {
         private String nome;
         private String email;
-        private PerfilPermissao perfilPermissao;
 
         public static Resumo from(Usuario usuario) {
             return Resumo.builder()
                     .nome(usuario.getNome())
                     .email(usuario.getEmail())
-                    .perfilPermissao(usuario.getPerfilPermissao())
                     .build();
         }
 

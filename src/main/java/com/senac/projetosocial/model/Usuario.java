@@ -33,7 +33,7 @@ public class Usuario {
     private String email;
 
     @NotNull(message = "O campo senha não pode ser nulo")
-    @Size(min = 1, max = 100, message = "O campo senha deve ter entre 1 a 100 caracteres")
+    @Size(min = 6, max = 100, message = "O campo senha deve ter entre 6 a 100 caracteres")
     @Column(name = "senha", length = 100)
     private String senha;
 
