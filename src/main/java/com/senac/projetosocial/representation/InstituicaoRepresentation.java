@@ -86,7 +86,7 @@ public interface InstituicaoRepresentation {
         private int numero;
         private int cep;
         private StatusEnum status;
-        private Usuario usuario;
+        private UsuarioRepresentation.Resumo usuario;
 
         public static Detalhe from(Instituicao instituicao){
             return Detalhe.builder()
@@ -105,7 +105,27 @@ public interface InstituicaoRepresentation {
                     .numero(instituicao.getNumero())
                     .cep(instituicao.getCep())
                     .status(instituicao.getStatus())
-                    .usuario(instituicao.getUsuario())
+                    .usuario(UsuarioRepresentation.Resumo.from(instituicao.getUsuario()))
+                    .build();
+        }
+    }
+
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo{
+        private Long id;
+        private String nome;
+        private String descricao;
+        private String cnpj;
+
+        public static Resumo from(Instituicao instituicao){
+            return Resumo.builder()
+                    .id(instituicao.getId())
+                    .nome(instituicao.getNome())
+                    .descricao((instituicao.getDescricao()))
+                    .cnpj(instituicao.getCnpj())
                     .build();
         }
     }
