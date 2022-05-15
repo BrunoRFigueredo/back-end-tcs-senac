@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.security.acl.Permission;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,6 +65,25 @@ public interface UsuarioRepresentation {
                     .confirmarSenha(usuario.getConfirmarSenha())
                     .dataHoraCadastro(usuario.getDataHoraCadastro())
                     .status(usuario.getStatus())
+                    .perfilPermissao(usuario.getPerfilPermissao())
+                    .build();
+        }
+
+    }
+
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo {
+        private String nome;
+        private String email;
+        private PerfilPermissao perfilPermissao;
+
+        public static Resumo from(Usuario usuario) {
+            return Resumo.builder()
+                    .nome(usuario.getNome())
+                    .email(usuario.getEmail())
                     .perfilPermissao(usuario.getPerfilPermissao())
                     .build();
         }
