@@ -26,8 +26,8 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final BCryptPasswordEncoder bCryptPassword;
-    private PerfilPermissaoRepository perfilPermissaoRepository;
     private PerfilPermissaoService perfilPermissaoService;
+    private ImagemService imagemService;
 
     public Usuario criarUsuario(UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
 
@@ -39,6 +39,7 @@ public class UsuarioService {
                 .dataHoraCadastro(LocalDateTime.now())
                 .status(StatusEnum.ATIVO)
                 .perfilPermissao(this.perfilPermissaoService.buscarPerfilPermissao(criarOuAtualizar.getPerfilPermissao()))
+                .imagem(this.imagemService.buscarImagem(criarOuAtualizar.getImagem()))
                 .build();
 
         return this.usuarioRepository.save(novoUsuario);

@@ -1,12 +1,14 @@
 package com.senac.projetosocial.representation;
 
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.model.Imagem;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.Usuario;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,6 +42,8 @@ public interface UsuarioRepresentation {
         @NotNull(message = "O perfil é obrigatório")
         private Long perfilPermissao;
 
+        private Long imagem;
+
     }
 
     @Data
@@ -55,7 +59,7 @@ public interface UsuarioRepresentation {
         private LocalDateTime dataHoraCadastro;
         private StatusEnum status;
         private PerfilPermissao perfilPermissao;
-
+        private Imagem imagem;
         public static Detail from(Usuario usuario) {
             return Detail.builder()
                     .id(usuario.getId())
@@ -66,6 +70,7 @@ public interface UsuarioRepresentation {
                     .dataHoraCadastro(usuario.getDataHoraCadastro())
                     .status(usuario.getStatus())
                     .perfilPermissao(usuario.getPerfilPermissao())
+                    .imagem(usuario.getImagem())
                     .build();
         }
 
@@ -109,6 +114,7 @@ public interface UsuarioRepresentation {
                     .collect(Collectors.toList());
         }
     }
+
     @Data
     @Getter
     @Builder
