@@ -1,6 +1,5 @@
 package com.senac.projetosocial.representation;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.Projeto;
@@ -71,6 +70,25 @@ public interface ProjetoRepresentation {
                     .build();
         }
     }
+
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo{
+        private Long id;
+        private String nome;
+        private String descricao;
+
+        public static ProjetoRepresentation.Resumo from(Projeto projeto){
+            return ProjetoRepresentation.Resumo.builder()
+                    .id(projeto.getId())
+                    .nome(projeto.getNome())
+                    .descricao(projeto.getDescricao())
+                    .build();
+        }
+    }
+
 
     @Data
     @Getter

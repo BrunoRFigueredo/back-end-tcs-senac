@@ -43,10 +43,7 @@ public class Instituicao {
     private String email;
 
     @Column(name = "telefone")
-    private int telefone;
-
-    @Column(name = "whatsapp")
-    private int whatsapp;
+    private String telefone;
 
     @Column(name = "pais")
     @Size(min = 1, max = 20, message = "O pais da instituição deve conter entre 1 e 20 caracteres")
@@ -74,7 +71,7 @@ public class Instituicao {
 
     @Column(name = "cep")
     @NotNull(message = "O cep da instituição não pode ser nulo!")
-    private int cep;
+    private String cep;
 
     @Column(name = "status")
     @NotNull(message = "O status da instituição não pode ser nulo!")
