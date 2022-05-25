@@ -35,9 +35,7 @@ public interface InstituicaoRepresentation {
         @Size(min = 1, max = 100, message = "O email da instituição deve conter entre 1 e 100 caracteres")
         private String email;
 
-        private int telefone;
-
-        private int whatsapp;
+        private String telefone;
 
         @Size(min = 1, max = 20, message = "O pais da instituição deve conter entre 1 e 20 caracteres")
         @NotNull(message = "O pais da instituição não pode ser nulo!")
@@ -59,7 +57,7 @@ public interface InstituicaoRepresentation {
         private int numero;
 
         @NotNull(message = "O cep da instituição não pode ser nulo!")
-        private int cep;
+        private String cep;
 
         private StatusEnum status;
 
@@ -77,14 +75,13 @@ public interface InstituicaoRepresentation {
         private String cnpj;
         private String pix;
         private String email;
-        private int telefone;
-        private int whatsapp;
+        private String telefone;
         private String pais;
         private String estado;
         private String cidade;
         private String logradouro;
         private int numero;
-        private int cep;
+        private String cep;
         private StatusEnum status;
         private UsuarioRepresentation.Resumo usuario;
 
@@ -97,7 +94,6 @@ public interface InstituicaoRepresentation {
                     .pix(instituicao.getPix())
                     .email(instituicao.getEmail())
                     .telefone(instituicao.getTelefone())
-                    .whatsapp(instituicao.getWhatsapp())
                     .pais(instituicao.getPais())
                     .estado(instituicao.getEstado())
                     .cidade(instituicao.getCidade())
@@ -140,8 +136,7 @@ public interface InstituicaoRepresentation {
         private String cnpj;
         private String pix;
         private String email;
-        private int telefone;
-        private int whatsapp;
+        private String telefone;
 
         private static Lista from (Instituicao instituicao){
             return  Lista.builder()
@@ -151,7 +146,6 @@ public interface InstituicaoRepresentation {
                     .pix(instituicao.getPix())
                     .email(instituicao.getEmail())
                     .telefone(instituicao.getTelefone())
-                    .whatsapp(instituicao.getWhatsapp())
                     .build();
         }
         public static List<Lista> from (List<Instituicao> instituicoes){

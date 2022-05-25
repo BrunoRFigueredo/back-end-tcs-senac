@@ -34,14 +34,10 @@ public interface VoluntarioRepresentation {
         @Size(min = 1, max = 11, message = "O cpf do voluntario deve conter entre 1 e 11 caracteres")
         private String cpf;
 
-        private String whatsapp;
+        private String telefone;
 
         @Size(min = 1, max = 200, message = "O email do voluntario deve conter entre 1 e 100 caracteres")
         private String email;
-
-        @Column(name = "celular")
-        @NotNull(message = "O celular do voluntario nao pode ser nulo!")
-        private Long celular;
 
         @Size(min = 1, max = 20, message = "O pais do voluntario deve conter entre 1 e 20 caracteres")
         @NotNull(message = "O pais da instituição não pode ser nulo!")
@@ -80,9 +76,8 @@ public interface VoluntarioRepresentation {
         private String nome;
         private String biografia;
         private String cpf;
-        private String whatsapp;
+        private String telefone;
         private String email;
-        private Long celular;
         private String pais;
         private String estado;
         private String cidade;
@@ -98,9 +93,8 @@ public interface VoluntarioRepresentation {
                     .nome(voluntario.getNome())
                     .biografia(voluntario.getBiografia())
                     .cpf(voluntario.getCpf())
-                    .whatsapp(voluntario.getWhatsapp())
+                    .telefone(voluntario.getTelefone())
                     .email(voluntario.getEmail())
-                    .celular(voluntario.getCelular())
                     .pais(voluntario.getPais())
                     .estado(voluntario.getEstado())
                     .bairro(voluntario.getBairro())
@@ -121,8 +115,7 @@ public interface VoluntarioRepresentation {
     class Lista{
         private Long id;
         private String nome;
-        private Long celular;
-        private String whatsapp;
+        private String telefone;
         private String email;
         private String bairro;
         private String cidade;
@@ -131,8 +124,7 @@ public interface VoluntarioRepresentation {
             return Lista.builder()
                     .id(voluntario.getId())
                     .nome(voluntario.getNome())
-                    .celular(voluntario.getCelular())
-                    .whatsapp(voluntario.getWhatsapp())
+                    .telefone(voluntario.getTelefone())
                     .email(voluntario.getEmail())
                     .bairro(voluntario.getBairro())
                     .cidade(voluntario.getCidade())

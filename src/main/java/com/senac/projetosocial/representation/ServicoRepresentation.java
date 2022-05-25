@@ -1,6 +1,7 @@
 package com.senac.projetosocial.representation;
 
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.QCategoria;
 import com.senac.projetosocial.model.Servico;
 import lombok.Builder;
@@ -46,6 +47,26 @@ public interface ServicoRepresentation {
                     .build();
         }
     }
+
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo{
+        private Long id;
+        private String nome;
+        private String descricao;
+        private String cnpj;
+
+        public static ServicoRepresentation.Resumo from(Servico servico){
+            return ServicoRepresentation.Resumo.builder()
+                    .id(servico.getId())
+                    .nome(servico.getNome())
+                    .descricao(servico.getDescricao())
+                    .build();
+        }
+    }
+
     @Data
     @Getter
     @Setter
