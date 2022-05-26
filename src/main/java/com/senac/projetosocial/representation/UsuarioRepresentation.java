@@ -32,7 +32,7 @@ public interface UsuarioRepresentation {
         private String email;
 
         @NotNull(message = "O campo senha não pode ser nulo")
-        @Size(min = 1, max = 100, message = "O campo senha deve ter entre 1 a 100 caracteres")
+        @Size(min = 6, max = 100, message = "O campo senha deve ter entre 1 a 100 caracteres")
         private String senha;
 
         @NotNull(message = "O campo confirmação da senha não pode ser nulo")
