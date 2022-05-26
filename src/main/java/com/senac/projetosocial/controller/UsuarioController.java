@@ -1,3 +1,4 @@
+
 package com.senac.projetosocial.controller;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -26,9 +27,9 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Usuario> cadastrarUsuario(
-        @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
+            @Valid @RequestBody UsuarioRepresentation.CriarOuAtualizar criarOuAtualizar) {
         BooleanExpression filtro = QUsuario.usuario.email.eq(criarOuAtualizar.getEmail());
 
         List<Usuario> usuario = this.usuarioRepository.findAll(filtro);

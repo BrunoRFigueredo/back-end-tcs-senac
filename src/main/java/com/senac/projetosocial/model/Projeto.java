@@ -39,11 +39,11 @@ public class Projeto {
     @Column(name = "data_inicio")
     @NotNull(message = "A data de inicio do projeto não pode ser nulo")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data_inicio;
+    private LocalDate dataInicio;
 
     @Column(name = "data_final")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate data_final;
+    private LocalDate dataFinal;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_instituicao")

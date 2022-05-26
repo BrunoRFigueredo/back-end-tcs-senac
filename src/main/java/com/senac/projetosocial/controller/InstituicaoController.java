@@ -46,8 +46,16 @@ public class InstituicaoController {
     @GetMapping("/{id}")
     public ResponseEntity<InstituicaoRepresentation.Detalhe> buscarInstituicao(@PathVariable("id") Long id){
         return ResponseEntity
-                .ok(InstituicaoRepresentation.Detalhe.from(this.instituicaoService.buscarInstituicao(id)));
+                .ok(InstituicaoRepresentation.Detalhe
+                        .from(this.instituicaoService.buscarInstituicao(id)));
     }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<InstituicaoRepresentation.Resumo> buscarInstituicaoUsuario(@PathVariable("idUsuario") Long idUsuario){
+            return ResponseEntity
+                    .ok(InstituicaoRepresentation.Resumo
+                            .from(this.instituicaoService.buscarInstituicaoUsuario(idUsuario)));
+        }
 
     @GetMapping("/")
     public ResponseEntity<Paginacao> buscarInstituicoes(
