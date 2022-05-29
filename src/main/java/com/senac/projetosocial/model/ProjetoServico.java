@@ -1,6 +1,8 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusAprovacaoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.enums.StatusServicoEnum;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,9 +33,9 @@ public class ProjetoServico {
     private LocalDate data_final;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_instituicao")
-    @NotNull(message = "A instituição do serviço não pode ser nula!")
-    private Instituicao instituicao;
+    @JoinColumn(name = "id_voluntario")
+    @NotNull(message = "A voluntário do serviço não pode ser nula!")
+    private Voluntario voluntario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
@@ -44,13 +46,13 @@ public class ProjetoServico {
     @NotNull(message = "O serviço não pode ser nulo!")
     private Servico servico;
 
-    @Column(name = "status_projeto")
-    private StatusEnum statusProjeto;
+    @Column(name = "status_projeto_servico")
+    private StatusEnum status;
 
     @Column(name = "status_servico")
-    private StatusEnum statusServico;
+    private StatusServicoEnum statusServico;
 
     @Column(name = "status_aprovacao")
-    private StatusEnum statusAprovacao;
+    private StatusAprovacaoEnum statusAprovacao;
 
 }

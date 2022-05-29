@@ -1,6 +1,8 @@
 package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.enums.StatusAprovacaoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.enums.StatusServicoEnum;
 import com.senac.projetosocial.model.ProjetoServico;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +32,7 @@ public interface ProjetoServicoRepresentation {
         private LocalDate data_final;
 
         @NotNull(message = "A instituição do projeto não pode ser nula")
-        private Long instituicao;
+        private Long voluntario;
 
         @NotNull(message = "O projeto do serviço não pode ser nulo!")
         private Long projeto;
@@ -38,11 +40,11 @@ public interface ProjetoServicoRepresentation {
         @NotNull(message = "O serviço não pode ser nulo!")
         private Long servico;
 
-        private StatusEnum statusProjeto;
+        private StatusEnum status;
 
-        private StatusEnum statusServico;
+        private StatusServicoEnum statusServico;
 
-        private StatusEnum statusAprovacao;
+        private StatusAprovacaoEnum statusAprovacao;
 
     }
 
@@ -52,12 +54,12 @@ public interface ProjetoServicoRepresentation {
     @Builder
     class Detalhe{
         private Long id;
-        private StatusEnum statusProjeto;
-        private StatusEnum statusServico;
-        private StatusEnum statusAprovacao;
+        private StatusEnum status;
+        private StatusServicoEnum statusServico;
+        private StatusAprovacaoEnum statusAprovacao;
         private LocalDate data_inicio;
         private LocalDate data_final;
-        private InstituicaoRepresentation.Resumo instituicao;
+        private VoluntarioRepresentation.Resumo voluntario;
         private ProjetoRepresentation.Resumo projeto;
         private ServicoRepresentation.Resumo servico;
 
@@ -67,10 +69,10 @@ public interface ProjetoServicoRepresentation {
                     .id(projetoServico.getId())
                     .data_inicio(projetoServico.getData_inicio())
                     .data_final(projetoServico.getData_final())
-                    .statusProjeto(projetoServico.getStatusProjeto())
+                    .status(projetoServico.getStatus())
                     .statusServico(projetoServico.getStatusServico())
                     .statusAprovacao(projetoServico.getStatusAprovacao())
-                    .instituicao(InstituicaoRepresentation.Resumo.from(projetoServico.getInstituicao()))
+                    .voluntario(VoluntarioRepresentation.Resumo.from(projetoServico.getVoluntario()))
                     .projeto(ProjetoRepresentation.Resumo.from(projetoServico.getProjeto()))
                     .servico(ServicoRepresentation.Resumo.from(projetoServico.getServico()))
                     .build();
