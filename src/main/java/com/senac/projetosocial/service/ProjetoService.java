@@ -21,15 +21,12 @@ public class ProjetoService {
 
     public Projeto salvarProjeto(ProjetoRepresentation.CriarOuAtualizar criarOuAtualizar,
                                 Instituicao instituicao){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String texto = criarOuAtualizar.getData_inicio().format(formatter);
-        LocalDate dateParsed = LocalDate.parse(texto, formatter);
 
         Projeto projeto = Projeto.builder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
-                .data_inicio(dateParsed)
-                .data_final(criarOuAtualizar.getData_final())
+                .dataInicio(criarOuAtualizar.getDataInicio())
+                .dataFinal(criarOuAtualizar.getDataFinal())
                 .status(StatusEnum.ATIVO)
                 .instituicao(instituicao)
                 .build();
@@ -53,8 +50,8 @@ public class ProjetoService {
         Projeto projetoNovo = projetoAntigo.toBuilder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
-                .data_inicio(criarOuAtualizar.getData_inicio())
-                .data_final(criarOuAtualizar.getData_final())
+                .dataInicio(criarOuAtualizar.getDataInicio())
+                .dataFinal(criarOuAtualizar.getDataFinal())
                 .instituicao(instituicao)
                 .status(StatusEnum.ATIVO)
                 .build();

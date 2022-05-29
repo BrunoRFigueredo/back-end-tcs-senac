@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class InstituicaoService {
     private InstituicaoRepository instituicaoRepository;
+    private UsuarioService usuarioService;
 
     public Instituicao cadastrarInstituicao(InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar, Usuario usuario){
         return this.instituicaoRepository.save(Instituicao.builder()
@@ -41,6 +42,17 @@ public class InstituicaoService {
 
         return this.instituicaoRepository.findOne(filtro)
                 .orElseThrow(() -> new NotFoundException("Instituição " + id + " não encontrada"));
+    }
+
+    public Instituicao buscarInstituicaoUsuario(Long idUsuario){
+
+        Usuario usuario = this.usuarioService.getUsuario(idUsuario);
+
+        BooleanExpression filtro = QInstituicao.instituicao.usuario().eq(usuario)
+                .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
+
+        return this.instituicaoRepository.findOne(filtro)
+                .orElseThrow(() -> new NotFoundException(""));
     }
 
     public Instituicao atualizarInstituicao(Long id, InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar, Usuario usuario){
