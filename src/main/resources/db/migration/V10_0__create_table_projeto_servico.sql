@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS projeto_social.projeto_servico
     status_aprovacao int not null,
     data_inicio date not null,
     data_final date,
-    id_voluntario int not null,
-    id_projeto int,
+    id_voluntario int,
+    id_projeto int not null,
     id_servico int not null,
     PRIMARY KEY(id),
     CONSTRAINT FK_SERVICO_PROJETO

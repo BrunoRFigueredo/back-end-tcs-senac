@@ -12,7 +12,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public interface ProjetoServicoRepresentation {
@@ -23,12 +25,11 @@ public interface ProjetoServicoRepresentation {
 
         @NotNull(message = "A data de inicio do serviço não pode ser nulo")
         @DateTimeFormat(pattern = "dd/MM/yyyy")
-        private LocalDate data_inicio;
+        private LocalDate dataInicio;
 
         @DateTimeFormat(pattern = "dd/MM/yyyy")
-        private LocalDate data_final;
+        private LocalDate dataFinal;
 
-        @NotNull(message = "A instituição do projeto não pode ser nula")
         private Long voluntario;
 
         @NotNull(message = "O projeto do serviço não pode ser nulo!")
@@ -54,22 +55,33 @@ public interface ProjetoServicoRepresentation {
         private StatusEnum status;
         private StatusServicoEnum statusServico;
         private StatusAprovacaoEnum statusAprovacao;
-        private LocalDate data_inicio;
-        private LocalDate data_final;
+        private LocalDate dataInicio;
+        private LocalDate dataFinal;
         private VoluntarioRepresentation.Resumo voluntario;
         private ProjetoRepresentation.Resumo projeto;
         private ServicoRepresentation.Resumo servico;
 
         public static Detalhe from(ProjetoServico projetoServico){
 
+            DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataInicio = projetoServico.getDataInicio().format(formatador);
+            LocalDate dataInicioFormatada = LocalDate.parse(dataInicio, formatador);
+
+            LocalDate dataFinalFormatada = null;
+
+            if (projetoServico.getDataFinal() != null) {
+                String dataFinal = projetoServico.getDataFinal().format(formatador);
+                dataFinalFormatada = LocalDate.parse(dataFinal, formatador);
+            }
+
             return Detalhe.builder()
                     .id(projetoServico.getId())
-                    .data_inicio(projetoServico.getData_inicio())
-                    .data_final(projetoServico.getData_final())
+                    .dataInicio(dataInicioFormatada)
+                    .dataFinal(dataFinalFormatada)
                     .status(projetoServico.getStatus())
                     .statusServico(projetoServico.getStatusServico())
                     .statusAprovacao(projetoServico.getStatusAprovacao())
-                    .voluntario(VoluntarioRepresentation.Resumo.from(projetoServico.getVoluntario()))
+                    .voluntario(Objects.isNull(projetoServico.getVoluntario()) ? null : VoluntarioRepresentation.Resumo.from(projetoServico.getVoluntario()))
                     .projeto(ProjetoRepresentation.Resumo.from(projetoServico.getProjeto()))
                     .servico(ServicoRepresentation.Resumo.from(projetoServico.getServico()))
                     .build();
@@ -83,14 +95,25 @@ public interface ProjetoServicoRepresentation {
     class Lista{
         private Long id;
         private String nome;
-        private LocalDate data_inicio;
-        private LocalDate data_final;
+        private LocalDate dataInicio;
+        private LocalDate dataFinal;
 
         private static Lista from (ProjetoServico projetoServico){
+            DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataInicio = projetoServico.getDataInicio().format(formatador);
+            LocalDate dataInicioFormatada = LocalDate.parse(dataInicio, formatador);
+
+            LocalDate dataFinalFormatada = null;
+
+            if (projetoServico.getDataFinal() != null) {
+                String dataFinal = projetoServico.getDataFinal().format(formatador);
+                dataFinalFormatada = LocalDate.parse(dataFinal, formatador);
+            }
+
             return Lista.builder()
                     .id(projetoServico.getId())
-                    .data_inicio(projetoServico.getData_inicio())
-                    .data_final(projetoServico.getData_final())
+                    .dataInicio(dataInicioFormatada)
+                    .dataFinal(dataFinalFormatada)
                     .build();
         }
 

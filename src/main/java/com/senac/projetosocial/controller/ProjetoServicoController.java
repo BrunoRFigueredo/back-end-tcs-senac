@@ -37,7 +37,10 @@ public class ProjetoServicoController {
             @Valid @RequestBody ProjetoServicoRepresentation.CriarOuAtualizar criarOuAtualizar) {
 
         Servico servico = this.servicoService.buscarServico(criarOuAtualizar.getServico());
-        Voluntario voluntario = this.voluntarioService.buscarVoluntario(criarOuAtualizar.getVoluntario());
+        Voluntario voluntario = null;
+        if (Objects.nonNull(criarOuAtualizar.getVoluntario())) {
+            voluntario = this.voluntarioService.buscarVoluntario(criarOuAtualizar.getVoluntario());
+        }
         Projeto projeto = this.projetoService.buscarProjeto(criarOuAtualizar.getProjeto());
 
         return ResponseEntity
@@ -45,6 +48,34 @@ public class ProjetoServicoController {
                 .body(ProjetoServicoRepresentation.Detalhe
                         .from(projetoServicoService.salvarProjetoServico(criarOuAtualizar, voluntario, projeto, servico)));
     }
+
+    @PutMapping("{id}/aprovar-reprovar-voluntario")
+    public ResponseEntity<ProjetoServicoRepresentation.Detalhe> aprovarReprovarVoluntario(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody ProjetoServicoRepresentation.CriarOuAtualizar criarOuAtualizar,
+            @RequestParam("isAprovado") Boolean isAprovado) {
+
+        Servico servico = this.servicoService.buscarServico(criarOuAtualizar.getServico());
+        Voluntario voluntario = this.voluntarioService.buscarVoluntario(criarOuAtualizar.getVoluntario());
+        Projeto projeto = this.projetoService.buscarProjeto(criarOuAtualizar.getProjeto());
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ProjetoServicoRepresentation.Detalhe
+                        .from(projetoServicoService.aprovarReprovarProjeto(id, criarOuAtualizar, voluntario, projeto, servico, isAprovado)));
+    }
+
+
+    @PutMapping("{id}/concluir-servico")
+    public ResponseEntity<ProjetoServicoRepresentation.Detalhe> concluirServico(
+            @PathVariable("id") Long id) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ProjetoServicoRepresentation.Detalhe
+                        .from(projetoServicoService.concluirServico(id)));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjetoServicoRepresentation.Detalhe> buscarProjeto(@PathVariable("id") Long id) {

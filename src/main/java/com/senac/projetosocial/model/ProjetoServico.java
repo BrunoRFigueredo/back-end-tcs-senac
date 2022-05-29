@@ -26,19 +26,19 @@ public class ProjetoServico {
     @Column(name = "data_inicio")
     @NotNull(message = "A data de inicio do serviço não pode ser nulo")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data_inicio;
+    private LocalDate dataInicio;
 
     @Column(name = "data_final")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate data_final;
+    private LocalDate dataFinal;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_voluntario")
-    @NotNull(message = "A voluntário do serviço não pode ser nula!")
     private Voluntario voluntario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
+    @NotNull(message = "O projeto do serviço não pode ser nulo!")
     private Projeto projeto;
 
     @ManyToOne(fetch = FetchType.EAGER)

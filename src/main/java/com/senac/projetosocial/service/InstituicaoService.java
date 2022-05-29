@@ -46,13 +46,11 @@ public class InstituicaoService {
 
     public Instituicao buscarInstituicaoUsuario(Long idUsuario){
 
-        Usuario usuario = this.usuarioService.getUsuario(idUsuario);
-
-        BooleanExpression filtro = QInstituicao.instituicao.usuario().eq(usuario)
+        BooleanExpression filtro = QInstituicao.instituicao.usuario().id.eq(idUsuario)
                 .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
 
         return this.instituicaoRepository.findOne(filtro)
-                .orElseThrow(() -> new NotFoundException(""));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
 
     public Instituicao atualizarInstituicao(Long id, InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar, Usuario usuario){
