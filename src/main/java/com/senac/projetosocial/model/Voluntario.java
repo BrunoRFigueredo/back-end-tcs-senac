@@ -34,10 +34,6 @@ public class Voluntario {
     @Size(min = 1, max = 11, message = "O cpf do voluntario deve conter entre 1 e 11 caracteres")
     private String cpf;
 
-    @Column(name = "email")
-    @Size(min = 1, max = 200, message = "O email do voluntario deve conter entre 1 e 100 caracteres")
-    private String email;
-
     @Column(name = "telefone")
     @NotNull(message = "O telefone não pode ser nulo!")
     private String telefone;

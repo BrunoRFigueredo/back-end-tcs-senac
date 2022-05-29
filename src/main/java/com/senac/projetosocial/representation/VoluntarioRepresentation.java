@@ -1,6 +1,7 @@
 package com.senac.projetosocial.representation;
 
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.model.Voluntario;
 import lombok.Builder;
@@ -94,7 +95,7 @@ public interface VoluntarioRepresentation {
                     .biografia(voluntario.getBiografia())
                     .cpf(voluntario.getCpf())
                     .telefone(voluntario.getTelefone())
-                    .email(voluntario.getEmail())
+                    .email(voluntario.getUsuario().getEmail())
                     .pais(voluntario.getPais())
                     .estado(voluntario.getEstado())
                     .bairro(voluntario.getBairro())
@@ -104,6 +105,27 @@ public interface VoluntarioRepresentation {
                     .cep(voluntario.getCep())
                     .status(voluntario.getStatus())
                     .usuario(UsuarioRepresentation.Resumo.from(voluntario.getUsuario()))
+                    .build();
+        }
+    }
+
+
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo{
+        private Long id;
+        private String nome;
+        private String email;
+        private String telefone;
+
+        public static Resumo from(Voluntario voluntario){
+            return Resumo.builder()
+                    .id(voluntario.getId())
+                    .nome(voluntario.getNome())
+                    .email((voluntario.getUsuario().getEmail()))
+                    .telefone(voluntario.getTelefone())
                     .build();
         }
     }
@@ -125,7 +147,7 @@ public interface VoluntarioRepresentation {
                     .id(voluntario.getId())
                     .nome(voluntario.getNome())
                     .telefone(voluntario.getTelefone())
-                    .email(voluntario.getEmail())
+                    .email(voluntario.getUsuario().getEmail())
                     .bairro(voluntario.getBairro())
                     .cidade(voluntario.getCidade())
                     .build();
