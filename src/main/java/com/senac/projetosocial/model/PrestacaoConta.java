@@ -21,11 +21,11 @@ public class PrestacaoConta {
 
     @Column(name = "vl_arrecadado")
     @NotNull(message = "O insumo do projeto não pode ser nulo!")
-    private BigDecimal vl_arrecadado;
+    private BigDecimal vlArrecadado;
 
     @Column(name = "qtd_alimento")
     @NotNull(message = "A quantidade de alimento não pode ser nulo!")
-    private Integer qtd_alimento;
+    private Integer qtdAlimento;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
