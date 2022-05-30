@@ -37,7 +37,7 @@ public class ProjetoInsumoService {
 
 
     public ProjetoInsumo buscarProjetoInsumo(Long id) {
-        return this.projetoInsumoRepository.findById(id).orElseThrow(() -> new NotFoundException("Perfil não encontrado."));
+        return this.projetoInsumoRepository.findById(id).orElseThrow(() -> new NotFoundException("Insumo não encontrado."));
     }
 
     public void deletarProjetoInsumo(Long id) {

@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/perfil-permissao")
+@RequestMapping("/projeto-insumo")
 @AllArgsConstructor
 @CrossOrigin("*")
 public class ProjetoInsumoController {
