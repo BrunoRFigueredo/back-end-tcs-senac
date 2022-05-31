@@ -53,6 +53,14 @@ public class InstituicaoService {
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
 
+
+    public Boolean existeInstitituicaoByUsuario(Long idUsuario){
+        BooleanExpression filtro = QInstituicao.instituicao.usuario().id.eq(idUsuario)
+                .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
+
+        return this.instituicaoRepository.exists(filtro);
+    }
+
     public Instituicao atualizarInstituicao(Long id, InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar, Usuario usuario){
         Instituicao instituicaoAntiga = this.buscarInstituicao(id);
         Instituicao instituicaoNova = instituicaoAntiga.toBuilder()
