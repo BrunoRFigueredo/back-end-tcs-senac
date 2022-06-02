@@ -35,6 +35,9 @@ public interface InsumoRepresentation {
         @NotNull(message = "A categoria é obrigatório")
         private Long categoria;
 
+        @NotNull(message = "A instituição do insumo não pode ser nula")
+        private Long instituicao;
+
     }
 
     @Data

@@ -4,6 +4,7 @@ import com.senac.projetosocial.enums.StatusAprovacaoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.enums.StatusServicoEnum;
 import com.senac.projetosocial.model.ProjetoServico;
+import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -94,9 +95,11 @@ public interface ProjetoServicoRepresentation {
     @Builder
     class Lista{
         private Long id;
-        private String nome;
         private LocalDate dataInicio;
         private LocalDate dataFinal;
+        private String nomeVoluntario;
+        private String nomeServico;
+        private StatusServicoEnum statusServicoEnum;
 
         private static Lista from (ProjetoServico projetoServico){
             DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -114,6 +117,9 @@ public interface ProjetoServicoRepresentation {
                     .id(projetoServico.getId())
                     .dataInicio(dataInicioFormatada)
                     .dataFinal(dataFinalFormatada)
+                    .nomeVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? "Sem voluntário" : projetoServico.getVoluntario().getNome())
+                    .nomeServico(projetoServico.getServico().getNome())
+                    .statusServicoEnum(projetoServico.getStatusServico())
                     .build();
         }
 

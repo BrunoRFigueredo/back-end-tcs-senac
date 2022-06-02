@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.model.Categoria;
+import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.Insumo;
 import com.senac.projetosocial.model.QInsumo;
 import com.senac.projetosocial.repository.InsumoRepository;
@@ -16,12 +17,13 @@ import org.springframework.stereotype.Service;
 public class InsumoService {
     private InsumoRepository insumoRepository;
 
-    public Insumo salvarInsumo(InsumoRepresentation.CriarOuAtualizar criarOuAtualizar, Categoria categoria) {
+    public Insumo salvarInsumo(InsumoRepresentation.CriarOuAtualizar criarOuAtualizar, Categoria categoria, Instituicao instituicao) {
         return this.insumoRepository.save(Insumo.builder()
                 .nome(criarOuAtualizar.getNome())
                 .descricao(criarOuAtualizar.getDescricao())
                 .unidadeMedida(criarOuAtualizar.getUnidadeMedida())
                 .categoria(categoria)
+                .instituicao(instituicao)
                 .status(StatusEnum.ATIVO)
                 .build());
     }

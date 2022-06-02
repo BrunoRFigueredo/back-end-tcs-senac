@@ -5,12 +5,16 @@ CREATE TABLE IF NOT EXISTS projeto_social.insumo(
     unidade_medida VARCHAR(20) NOT NULL,
     status    INT NOT NULL,
     id_categoria INTEGER NOT NULL,
+    id_instituicao integer,
     PRIMARY KEY (id),
     CONSTRAINT fk_insumo_categoria
     FOREIGN KEY (id_categoria)
     REFERENCES projeto_social.categoria (id)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION,
+    CONSTRAINT FK_INSUMO_INSTITUICAO
+    FOREIGN KEY (id_instituicao)
+    REFERENCES projeto_social.instituicao (id));
 
 );
 

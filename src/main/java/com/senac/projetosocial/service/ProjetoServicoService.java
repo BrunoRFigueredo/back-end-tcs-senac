@@ -9,10 +9,9 @@ import com.senac.projetosocial.model.*;
 import com.senac.projetosocial.repository.ProjetoServicoRepository;
 import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Service
 @AllArgsConstructor
@@ -34,6 +33,17 @@ public class ProjetoServicoService {
                 .build();
 
         return this.projetoServicoRepository.save(projetoServico);
+    }
+
+    public Page<ProjetoServico> buscarProjetosServicosByProjeto(Long idProjeto, Pageable pageable) {
+        BooleanExpression filtro = QProjetoServico.projetoServico.projeto().id.eq(idProjeto)
+                .and(QProjetoServico.projetoServico.statusServico.eq(StatusServicoEnum.EM_ANDAMENTO)
+                        .or(QProjetoServico.projetoServico.statusServico.eq(StatusServicoEnum.PENDENTE))
+                        .and(QProjetoServico.projetoServico.statusAprovacao.eq(StatusAprovacaoEnum.PROCESSANDO)
+                                .or(QProjetoServico.projetoServico.statusAprovacao.eq(StatusAprovacaoEnum.APROVADO)))
+                        .and(QProjetoServico.projetoServico.status.eq(StatusEnum.ATIVO)));
+
+        return this.projetoServicoRepository.findAll(filtro, pageable);
     }
 
     public ProjetoServico buscarProjetoServico(Long id) {

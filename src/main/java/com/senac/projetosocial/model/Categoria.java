@@ -34,5 +34,10 @@ public class Categoria {
     @NotNull(message = "O status da categoria não pode ser nula")
     private StatusEnum status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_instituicao")
+    @NotNull(message = "A instituição da categoria não pode ser nula!")
+    private Instituicao instituicao;
+
 
 }
