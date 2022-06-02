@@ -3,10 +3,12 @@ package com.senac.projetosocial.controller;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
+import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.QServico;
 import com.senac.projetosocial.model.Servico;
 import com.senac.projetosocial.repository.ServicoRepository;
 import com.senac.projetosocial.representation.ServicoRepresentation;
+import com.senac.projetosocial.service.InstituicaoService;
 import com.senac.projetosocial.service.ServicoService;
 import com.senac.projetosocial.util.Paginacao;
 import lombok.AllArgsConstructor;
@@ -28,30 +30,36 @@ import java.util.Objects;
 public class ServicoController {
     private ServicoService servicoService;
     private ServicoRepository servicoRepository;
+    private InstituicaoService instituicaoService;
 
     @PostMapping("/")
     public ResponseEntity<ServicoRepresentation.Detalhe> cadastrarServico(
-        @Valid @RequestBody ServicoRepresentation.CriarOuAtualizar criarOuAtualizar){
+            @Valid @RequestBody ServicoRepresentation.CriarOuAtualizar criarOuAtualizar) {
+
+        Instituicao instituicao = this.instituicaoService.buscarInstituicao(criarOuAtualizar.getInstituicao());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ServicoRepresentation.Detalhe.from(this.servicoService.salvarServico(criarOuAtualizar)));
+                .body(ServicoRepresentation.Detalhe.from(this.servicoService.salvarServico(criarOuAtualizar, instituicao)));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ServicoRepresentation.Detalhe> buscarServico(@PathVariable("id") Long id){
+    public ResponseEntity<ServicoRepresentation.Detalhe> buscarServico(@PathVariable("id") Long id) {
         return ResponseEntity
                 .ok(ServicoRepresentation.Detalhe.from(this.servicoService.buscarServico(id)));
     }
-    @GetMapping("/")
+
+    @GetMapping("instituicao/{idInstituicao}")
     public ResponseEntity<Paginacao> buscarServicos(
             @QuerydslPredicate(root = Servico.class) Predicate filtroURI,
+            @PathVariable("idInstituicao") Long idInstituicao,
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
-            @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina){
+            @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
 
+        BooleanExpression where = QServico.servico.status.eq(StatusEnum.ATIVO).and(QServico.servico.instituicao().id.eq(idInstituicao));
         BooleanExpression filtro = Objects.isNull(filtroURI) ?
-                QServico.servico.status.eq(StatusEnum.ATIVO) :
-                QServico.servico.status.eq(StatusEnum.ATIVO)
-                        .and(filtroURI);
+                where :
+                where.and(filtroURI);
 
         Pageable pagina = PageRequest.of(numeroPagina, tamanhoPagina);
 
@@ -69,17 +77,19 @@ public class ServicoController {
         return ResponseEntity.ok(paginacao);
 
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<ServicoRepresentation.Detalhe> atualizarServico(@PathVariable("id") Long id,
-        @Valid @RequestBody ServicoRepresentation.CriarOuAtualizar criarOuAtualizar){
+                                                                          @Valid @RequestBody ServicoRepresentation.CriarOuAtualizar criarOuAtualizar) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ServicoRepresentation.Detalhe
                         .from(this.servicoService.atualizarServico(id, criarOuAtualizar)));
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity deletarServico(@PathVariable("id") Long id){
+    public ResponseEntity deletarServico(@PathVariable("id") Long id) {
         this.servicoService.deletarServico(id);
 
         return ResponseEntity

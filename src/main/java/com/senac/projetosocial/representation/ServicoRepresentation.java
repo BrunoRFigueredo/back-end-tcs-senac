@@ -26,6 +26,10 @@ public interface ServicoRepresentation {
         @NotNull(message = "A descrição do serviço não pode ser nulo")
         @Size(max = 200, min = 1, message = "A descrição do serviço deve conter entre 1 e 45 caracteres")
         private String descricao;
+
+        @NotNull(message = "A instituição do serviço não pode ser nula")
+        private Long instituicao;
+
     }
 
     @Data

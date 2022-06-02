@@ -19,18 +19,24 @@ public class Servico {
     @SequenceGenerator(name = "sequence_servico", sequenceName = "sequence_servico", allocationSize = 1)
     private Long id;
 
-    @Column(name= "nome")
+    @Column(name = "nome")
     @NotNull(message = "O nome do serviço não pode ser nulo")
     @Size(max = 45, min = 1, message = "O nome do serviço deve conter entre 1 e 45 caracteres")
     private String nome;
 
-    @Column(name= "descricao")
+    @Column(name = "descricao")
     @NotNull(message = "A descrição do serviço não pode ser nulo")
     @Size(max = 200, min = 1, message = "A descrição do serviço deve conter entre 1 e 45 caracteres")
     private String descricao;
 
-    @Column(name= "status")
+    @Column(name = "status")
     @NotNull(message = "O status do serviço não pode ser nulo")
     private StatusEnum status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_instituicao")
+    @NotNull(message = "A instituição do serviço não pode ser nula!")
+    private Instituicao instituicao;
+
 
 }

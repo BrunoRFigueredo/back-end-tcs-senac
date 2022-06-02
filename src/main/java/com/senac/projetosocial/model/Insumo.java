@@ -44,4 +44,9 @@ public class Insumo {
     @NotNull(message = "O status do insumo não pode ser nulo")
     private StatusEnum status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_instituicao")
+    @NotNull(message = "A instituição do insumo não pode ser nula!")
+    private Instituicao instituicao;
+
 }

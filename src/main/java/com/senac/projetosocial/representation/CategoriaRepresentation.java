@@ -23,6 +23,9 @@ public interface CategoriaRepresentation {
         @NotNull(message = "A descrição da categoria não pode ser nula")
         @Size(max = 200, min = 1, message = "A descrição da categoria não pode ser nula")
         private String descricao;
+
+        @NotNull(message = "A instituição da categoria não pode ser nula!")
+        private Long instituicao;
     }
 
     @Data
@@ -44,6 +47,7 @@ public interface CategoriaRepresentation {
                     .build();
         }
     }
+    
     @Data
     @Getter
     @Setter

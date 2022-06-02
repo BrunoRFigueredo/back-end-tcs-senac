@@ -4,7 +4,6 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.*;
-import com.senac.projetosocial.repository.ProjetoRepository;
 import com.senac.projetosocial.repository.ProjetoServicoRepository;
 import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.*;
@@ -29,7 +28,6 @@ public class ProjetoServicoController {
     private final ProjetoService projetoService;
     private final VoluntarioService voluntarioService;
     private final ServicoService servicoService;
-    private final ProjetoServicoRepository projetoServicoRepository;
     private final ProjetoServicoService projetoServicoService;
 
     @PostMapping("/")
@@ -76,7 +74,6 @@ public class ProjetoServicoController {
                         .from(projetoServicoService.concluirServico(id)));
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<ProjetoServicoRepresentation.Detalhe> buscarProjeto(@PathVariable("id") Long id) {
         return ResponseEntity
@@ -84,20 +81,15 @@ public class ProjetoServicoController {
                         .from(this.projetoServicoService.buscarProjetoServico(id)));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Paginacao> buscarProjetos(
-            @QuerydslPredicate(root = Projeto.class) Predicate filtroURI,
+    @GetMapping("/servicos/{idProjeto}")
+    public ResponseEntity<Paginacao> buscarProjetosServicosByProjeto(
+            @PathVariable("idProjeto") Long idProjeto,
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
 
-        BooleanExpression filtro = Objects.isNull(filtroURI) ?
-                QProjeto.projeto.status.eq(StatusEnum.ATIVO) :
-                QProjeto.projeto.status.eq(StatusEnum.ATIVO)
-                        .and(filtroURI);
-
         Pageable pagina = PageRequest.of(numeroPagina, tamanhoPagina);
 
-        Page<ProjetoServico> listaProjeto = this.projetoServicoRepository.findAll(filtro, pagina);
+        Page<ProjetoServico> listaProjeto = this.projetoServicoService.buscarProjetosServicosByProjeto(idProjeto, pagina);
 
         Paginacao paginacao = Paginacao.builder()
                 .paginaSelecionada(numeroPagina)
