@@ -60,6 +60,11 @@ public class Instituicao {
     @NotNull(message = "A cidade da instituição não pode ser nula!")
     private String cidade;
 
+    @Column(name = "bairro")
+    @Size(min = 1, max = 100, message = "O bairro da instituição deve conter entre 1 e 100 caracteres")
+    @NotNull(message = "O bairro da instituição não pode ser nulo!")
+    private String bairro;
+
     @Column(name = "logradouro")
     @Size(min = 1, max = 120, message = "O logradouro da instituição deve conter entre 1 e 120 caracteres")
     @NotNull(message = "O logradouro da instituição não pode ser nulo!")

@@ -28,6 +28,7 @@ public class InstituicaoService {
                 .pais(criarOuAtualizar.getPais())
                 .estado(criarOuAtualizar.getEstado())
                 .cidade(criarOuAtualizar.getCidade())
+                .bairro(criarOuAtualizar.getBairro())
                 .logradouro(criarOuAtualizar.getLogradouro())
                 .numero(criarOuAtualizar.getNumero())
                 .cep(criarOuAtualizar.getCep())
@@ -50,7 +51,7 @@ public class InstituicaoService {
                 .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
 
         return this.instituicaoRepository.findOne(filtro)
-                .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
+                .orElseThrow(() -> new NotFoundException("Instituicao não encontrada para este usuário."));
     }
 
 
@@ -73,6 +74,7 @@ public class InstituicaoService {
                 .pais(criarOuAtualizar.getPais())
                 .estado(criarOuAtualizar.getEstado())
                 .cidade(criarOuAtualizar.getCidade())
+                .bairro(criarOuAtualizar.getBairro())
                 .logradouro(criarOuAtualizar.getLogradouro())
                 .numero(criarOuAtualizar.getNumero())
                 .cep(criarOuAtualizar.getCep())

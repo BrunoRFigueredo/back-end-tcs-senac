@@ -49,6 +49,10 @@ public interface InstituicaoRepresentation {
         @NotNull(message = "A cidade da instituição não pode ser nula!")
         private String cidade;
 
+        @Size(min = 1, max = 100, message = "O bairro da instituição deve conter entre 1 e 100 caracteres")
+        @NotNull(message = "O bairro da instituição não pode ser nulo!")
+        private String bairro;
+
         @Size(min = 1, max = 120, message = "O logradouro da instituição deve conter entre 1 e 120 caracteres")
         @NotNull(message = "O logradouro da instituição não pode ser nulo!")
         private String logradouro;
@@ -79,6 +83,7 @@ public interface InstituicaoRepresentation {
         private String pais;
         private String estado;
         private String cidade;
+        private String bairro;
         private String logradouro;
         private int numero;
         private String cep;
@@ -97,6 +102,7 @@ public interface InstituicaoRepresentation {
                     .pais(instituicao.getPais())
                     .estado(instituicao.getEstado())
                     .cidade(instituicao.getCidade())
+                    .bairro(instituicao.getBairro())
                     .logradouro(instituicao.getLogradouro())
                     .numero(instituicao.getNumero())
                     .cep(instituicao.getCep())
@@ -115,6 +121,7 @@ public interface InstituicaoRepresentation {
         private String nome;
         private String descricao;
         private String cnpj;
+
 
         public static Resumo from(Instituicao instituicao){
             return Resumo.builder()
@@ -137,6 +144,7 @@ public interface InstituicaoRepresentation {
         private String pix;
         private String email;
         private String telefone;
+        private Usuario usuario;
 
         private static Lista from (Instituicao instituicao){
             return  Lista.builder()
@@ -146,6 +154,7 @@ public interface InstituicaoRepresentation {
                     .pix(instituicao.getPix())
                     .email(instituicao.getEmail())
                     .telefone(instituicao.getTelefone())
+                    .usuario(instituicao.getUsuario())
                     .build();
         }
         public static List<Lista> from (List<Instituicao> instituicoes){
