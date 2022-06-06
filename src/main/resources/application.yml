@@ -27,6 +27,9 @@ spring:
     schemas:
       - ${DATABASE:projeto_social}
     baseline-on-migrate: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 security:
   token:

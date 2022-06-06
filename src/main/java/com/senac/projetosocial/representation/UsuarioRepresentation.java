@@ -83,11 +83,13 @@ public interface UsuarioRepresentation {
     class Resumo {
         private String nome;
         private String email;
+        private Imagem imagem;
 
         public static Resumo from(Usuario usuario) {
             return Resumo.builder()
                     .nome(usuario.getNome())
                     .email(usuario.getEmail())
+                    .imagem(usuario.getImagem())
                     .build();
         }
 
