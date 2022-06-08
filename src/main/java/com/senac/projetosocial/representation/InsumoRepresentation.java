@@ -49,8 +49,9 @@ public interface InsumoRepresentation {
         private String nome;
         private String descricao;
         private String unidadeMedida;
-        private Categoria categoria;
+        private CategoriaRepresentation.Resumo categoria;
         private StatusEnum status;
+        private InstituicaoRepresentation.Resumo instituicao;
 
         public static Detalhe from(Insumo insumo) {
             return Detalhe.builder()
@@ -58,8 +59,9 @@ public interface InsumoRepresentation {
                     .nome(insumo.getNome())
                     .descricao(insumo.getDescricao())
                     .unidadeMedida(insumo.getUnidadeMedida())
-                    .categoria(insumo.getCategoria())
                     .status(insumo.getStatus())
+                    .categoria(CategoriaRepresentation.Resumo.from(insumo.getCategoria()))
+                    .instituicao(InstituicaoRepresentation.Resumo.from(insumo.getInstituicao()))
                     .build();
         }
     }
@@ -71,11 +73,13 @@ public interface InsumoRepresentation {
     class Lista {
         private Long id;
         private String nome;
+        private String unidadeMedida;
 
         private static Lista from(Insumo insumo) {
             return Lista.builder()
                     .id(insumo.getId())
                     .nome(insumo.getNome())
+                    .unidadeMedida(insumo.getUnidadeMedida())
                     .build();
         }
 

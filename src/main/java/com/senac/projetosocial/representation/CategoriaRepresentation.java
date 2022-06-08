@@ -37,6 +37,7 @@ public interface CategoriaRepresentation {
         private String nome;
         private String descricao;
         private StatusEnum status;
+        private InstituicaoRepresentation.Resumo instituicao;
 
         public static Detalhe from (Categoria categoria){
             return Detalhe.builder()
@@ -44,10 +45,26 @@ public interface CategoriaRepresentation {
                     .nome(categoria.getNome())
                     .descricao(categoria.getDescricao())
                     .status(categoria.getStatus())
+                    .instituicao(InstituicaoRepresentation.Resumo.from(categoria.getInstituicao()))
                     .build();
         }
     }
-    
+    @Data
+    @Getter
+    @Setter
+    @Builder
+    class Resumo{
+        private Long id;
+        private String nome;
+        public static Resumo from (Categoria categoria){
+            return Resumo.builder()
+                    .id(categoria.getId())
+                    .nome(categoria.getNome())
+                    .build();
+        }
+    }
+
+
     @Data
     @Getter
     @Setter
