@@ -83,8 +83,6 @@ public class ProjetoServicoService {
     }
 
     public ProjetoServico aprovarReprovarProjeto(Long id,
-                                                 ProjetoServicoRepresentation.CriarOuAtualizar criarOuAtualizar,
-                                                 Voluntario voluntario, Projeto projeto, Servico servico,
                                                  Boolean isAprovado) {
         ProjetoServico projetoAntigo = this.buscarProjetoServico(id);
 
@@ -93,28 +91,30 @@ public class ProjetoServicoService {
                 .status(StatusEnum.ATIVO)
                 .statusAprovacao(StatusAprovacaoEnum.APROVADO)
                 .statusServico(StatusServicoEnum.EM_ANDAMENTO)
-                .dataInicio(criarOuAtualizar.getDataInicio())
-                .dataFinal(criarOuAtualizar.getDataFinal())
-                .voluntario(voluntario)
-                .projeto(projeto)
-                .servico(servico)
                 .build();
         if (!isAprovado) {
             projetoNovo = projetoServicoBuilder
                     .status(StatusEnum.ATIVO)
                     .statusAprovacao(StatusAprovacaoEnum.REPROVADO)
                     .statusServico(StatusServicoEnum.CONCLUIDO)
-                    .dataInicio(criarOuAtualizar.getDataInicio())
-                    .dataFinal(criarOuAtualizar.getDataFinal())
-                    .voluntario(voluntario)
-                    .projeto(projeto)
-                    .servico(servico)
                     .build();
         }
 
 
         return this.projetoServicoRepository.save(projetoNovo);
     }
+
+    public ProjetoServico vincularVoluntario(Long id,
+                                             Voluntario voluntario) {
+        ProjetoServico projetoAntigo = this.buscarProjetoServico(id);
+        ProjetoServico.ProjetoServicoBuilder projetoServicoBuilder = projetoAntigo.toBuilder();
+        ProjetoServico projetoNovo = projetoServicoBuilder
+                .voluntario(voluntario)
+                .build();
+
+        return this.projetoServicoRepository.save(projetoNovo);
+    }
+
 
     public void apagarProjetoServico(Long id) {
         ProjetoServico projetoServico = this.buscarProjetoServico(id);

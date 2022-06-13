@@ -7,6 +7,7 @@ import com.senac.projetosocial.model.QVoluntario;
 import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.model.Voluntario;
 import com.senac.projetosocial.repository.VoluntarioRepository;
+import com.senac.projetosocial.representation.InstituicaoRepresentation;
 import com.senac.projetosocial.representation.VoluntarioRepresentation;
 import com.senac.projetosocial.service.UsuarioService;
 import com.senac.projetosocial.service.VoluntarioService;
@@ -47,6 +48,14 @@ public class VoluntarioController {
     @GetMapping("/{id}")
     public ResponseEntity<VoluntarioRepresentation.Detalhe> buscarVoluntario(@PathVariable("id") Long id){
         return ResponseEntity.ok(VoluntarioRepresentation.Detalhe.from(this.voluntarioService.buscarVoluntario(id)));
+    }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<VoluntarioRepresentation.Resumo> buscarVoluntarioUsuario
+            (@PathVariable("idUsuario") Long idUsuario){
+        return ResponseEntity
+                .ok(VoluntarioRepresentation.Resumo
+                        .from(this.voluntarioService.buscarVoluntarioUsuario(idUsuario)));
     }
 
     @GetMapping("/")
