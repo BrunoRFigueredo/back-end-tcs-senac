@@ -38,12 +38,12 @@ public class InstituicaoController {
             @Valid @RequestBody InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar){
 
         Boolean existeInstitituicaoByUsuario = instituicaoService.existeInstitituicaoByUsuario(criarOuAtualizar.getUsuario());
+
         if(existeInstitituicaoByUsuario){
             throw new BusinessException("Já existe uma instituição cadastrada para este usuário");
         }
 
         Usuario usuario = this.usuarioService.getUsuario(criarOuAtualizar.getUsuario());
-
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

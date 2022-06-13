@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -29,8 +32,13 @@ public interface InstituicaoRepresentation {
         @Size(min = 1, max = 45, message = "O cnpj da instituição deve conter entre 1 e 45 caracteres")
         private String cnpj;
 
-        @Size(min = 1, max = 80, message = "A chave pix deve conter entre  e 80 caracteres")
-        private String pix;
+        @NotNull(message = "A conta da instituição não pode ser nula!")
+        @NotEmpty(message = "A conta da instituição não pode ser vazia!")
+        private String conta;
+
+        @NotNull(message = "A agência da instituição não pode ser nula!")
+        @NotEmpty(message = "A agência da instituição não pode ser vazia!")
+        private String agencia;
 
         @Size(min = 1, max = 100, message = "O email da instituição deve conter entre 1 e 100 caracteres")
         private String email;
@@ -77,6 +85,8 @@ public interface InstituicaoRepresentation {
         private String nome;
         private String descricao;
         private String cnpj;
+        private String conta;
+        private String agencia;
         private String pix;
         private String email;
         private String telefone;
@@ -95,8 +105,9 @@ public interface InstituicaoRepresentation {
                     .id(instituicao.getId())
                     .nome(instituicao.getNome())
                     .descricao((instituicao.getDescricao()))
+                    .conta(instituicao.getConta())
+                    .agencia(instituicao.getAgencia())
                     .cnpj(instituicao.getCnpj())
-                    .pix(instituicao.getPix())
                     .email(instituicao.getEmail())
                     .telefone(instituicao.getTelefone())
                     .pais(instituicao.getPais())
@@ -121,7 +132,6 @@ public interface InstituicaoRepresentation {
         private String nome;
         private String descricao;
         private String cnpj;
-
 
         public static Resumo from(Instituicao instituicao){
             return Resumo.builder()
@@ -151,7 +161,6 @@ public interface InstituicaoRepresentation {
                     .id(instituicao.getId())
                     .nome(instituicao.getNome())
                     .cnpj(instituicao.getCnpj())
-                    .pix(instituicao.getPix())
                     .email(instituicao.getEmail())
                     .telefone(instituicao.getTelefone())
                     .usuario(instituicao.getUsuario())
