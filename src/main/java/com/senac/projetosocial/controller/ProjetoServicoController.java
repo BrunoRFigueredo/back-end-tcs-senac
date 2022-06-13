@@ -8,6 +8,7 @@ import com.senac.projetosocial.repository.ProjetoServicoRepository;
 import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.*;
 import com.senac.projetosocial.util.Paginacao;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,20 +48,28 @@ public class ProjetoServicoController {
                         .from(projetoServicoService.salvarProjetoServico(criarOuAtualizar, voluntario, projeto, servico)));
     }
 
-    @PutMapping("{id}/aprovar-reprovar-voluntario")
-    public ResponseEntity<ProjetoServicoRepresentation.Detalhe> aprovarReprovarVoluntario(
+    @PutMapping("/servicos/{id}/vincular-voluntario/{idVoluntario}")
+    public ResponseEntity<ProjetoServicoRepresentation.Detalhe> vincularVoluntario(
             @PathVariable("id") Long id,
-            @Valid @RequestBody ProjetoServicoRepresentation.CriarOuAtualizar criarOuAtualizar,
-            @RequestParam("isAprovado") Boolean isAprovado) {
+            @PathVariable("idVoluntario") Long idVoluntario) {
 
-        Servico servico = this.servicoService.buscarServico(criarOuAtualizar.getServico());
-        Voluntario voluntario = this.voluntarioService.buscarVoluntario(criarOuAtualizar.getVoluntario());
-        Projeto projeto = this.projetoService.buscarProjeto(criarOuAtualizar.getProjeto());
+        Voluntario voluntario = this.voluntarioService.buscarVoluntario(idVoluntario);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ProjetoServicoRepresentation.Detalhe
-                        .from(projetoServicoService.aprovarReprovarProjeto(id, criarOuAtualizar, voluntario, projeto, servico, isAprovado)));
+                        .from(projetoServicoService.vincularVoluntario(id, voluntario)));
+    }
+
+    @PutMapping("/servicos/{id}/aprovar-reprovar-voluntario")
+    public ResponseEntity<ProjetoServicoRepresentation.Detalhe> aprovarReprovarVoluntario(
+            @PathVariable("id") Long id,
+            @RequestParam String isAprovado) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ProjetoServicoRepresentation.Detalhe
+                        .from(projetoServicoService.aprovarReprovarProjeto(id, Boolean.valueOf(isAprovado))));
     }
 
 

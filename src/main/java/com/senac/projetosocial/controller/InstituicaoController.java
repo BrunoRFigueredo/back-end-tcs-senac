@@ -3,7 +3,7 @@ package com.senac.projetosocial.controller;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
-import com.senac.projetosocial.exceptions.BusinessExeption;
+import com.senac.projetosocial.exceptions.BusinessException;
 import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.QInstituicao;
 import com.senac.projetosocial.model.Usuario;
@@ -39,7 +39,7 @@ public class InstituicaoController {
 
         Boolean existeInstitituicaoByUsuario = instituicaoService.existeInstitituicaoByUsuario(criarOuAtualizar.getUsuario());
         if(existeInstitituicaoByUsuario){
-            throw new BusinessExeption("Já existe uma instituição cadastrada para este usuário");
+            throw new BusinessException("Já existe uma instituição cadastrada para este usuário");
         }
 
         Usuario usuario = this.usuarioService.getUsuario(criarOuAtualizar.getUsuario());

@@ -3,9 +3,7 @@ package com.senac.projetosocial.service;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.exceptions.NotFoundException;
-import com.senac.projetosocial.model.QVoluntario;
-import com.senac.projetosocial.model.Usuario;
-import com.senac.projetosocial.model.Voluntario;
+import com.senac.projetosocial.model.*;
 import com.senac.projetosocial.repository.VoluntarioRepository;
 import com.senac.projetosocial.representation.VoluntarioRepresentation;
 import lombok.AllArgsConstructor;
@@ -66,6 +64,16 @@ public class VoluntarioService {
 
         return this.voluntarioRepository.save(voluntarioAtualizado);
     }
+
+    public Voluntario buscarVoluntarioUsuario(Long idUsuario){
+
+        BooleanExpression filtro = QVoluntario.voluntario.usuario().id.eq(idUsuario)
+                .and(QVoluntario.voluntario.status.eq(StatusEnum.ATIVO));
+
+        return this.voluntarioRepository.findOne(filtro)
+                .orElseThrow(() -> new NotFoundException("Instituicao não encontrada para este usuário."));
+    }
+
 
     public void apagarVoluntario(Long id){
         Voluntario voluntario = this.buscarVoluntario(id);

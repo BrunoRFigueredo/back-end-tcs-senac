@@ -83,6 +83,7 @@ public interface ProjetoServicoRepresentation {
                     .statusServico(projetoServico.getStatusServico())
                     .statusAprovacao(projetoServico.getStatusAprovacao())
                     .voluntario(Objects.isNull(projetoServico.getVoluntario()) ? null : VoluntarioRepresentation.Resumo.from(projetoServico.getVoluntario()))
+                    .voluntario(Objects.isNull(projetoServico.getVoluntario()) ? null : VoluntarioRepresentation.Resumo.from(projetoServico.getVoluntario()))
                     .projeto(ProjetoRepresentation.Resumo.from(projetoServico.getProjeto()))
                     .servico(ServicoRepresentation.Resumo.from(projetoServico.getServico()))
                     .build();
@@ -97,6 +98,7 @@ public interface ProjetoServicoRepresentation {
         private Long id;
         private LocalDate dataInicio;
         private LocalDate dataFinal;
+        private Long idVoluntario;
         private String nomeVoluntario;
         private String nomeServico;
         private StatusServicoEnum statusServicoEnum;
@@ -117,6 +119,7 @@ public interface ProjetoServicoRepresentation {
                     .id(projetoServico.getId())
                     .dataInicio(dataInicioFormatada)
                     .dataFinal(dataFinalFormatada)
+                    .idVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? null : projetoServico.getVoluntario().getId())
                     .nomeVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? "Sem voluntário" : projetoServico.getVoluntario().getNome())
                     .nomeServico(projetoServico.getServico().getNome())
                     .statusServicoEnum(projetoServico.getStatusServico())
