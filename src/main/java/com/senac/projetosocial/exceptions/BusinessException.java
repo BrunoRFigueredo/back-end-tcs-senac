@@ -4,17 +4,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BusinessExeption extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
-    public BusinessExeption() {
+    public BusinessException() {
         super();
     }
 
-    public BusinessExeption(final String message) {
+    public BusinessException(final String message) {
         super(message);
     }
 
-    public BusinessExeption(final String message, final Throwable cause) {
+    public BusinessException(final String message, final Throwable cause) {
         super(message, cause);
     }
 

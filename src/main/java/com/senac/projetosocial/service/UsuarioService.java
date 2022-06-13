@@ -2,23 +2,16 @@ package com.senac.projetosocial.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.senac.projetosocial.enums.StatusEnum;
-import com.senac.projetosocial.exceptions.BusinessExeption;
 import com.senac.projetosocial.exceptions.NotFoundException;
-import com.senac.projetosocial.model.PerfilPermissao;
-import com.senac.projetosocial.model.QPerfilPermissao;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
-import com.senac.projetosocial.repository.PerfilPermissaoRepository;
 import com.senac.projetosocial.repository.UsuarioRepository;
-import com.senac.projetosocial.representation.LoginRepresentation;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @AllArgsConstructor

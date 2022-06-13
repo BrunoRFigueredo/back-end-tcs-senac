@@ -2,12 +2,11 @@
 package com.senac.projetosocial.controller;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.senac.projetosocial.exceptions.BusinessExeption;
+import com.senac.projetosocial.exceptions.BusinessException;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.repository.UsuarioRepository;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
-import com.senac.projetosocial.service.PerfilPermissaoService;
 import com.senac.projetosocial.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,9 +34,9 @@ public class UsuarioController {
         List<Usuario> usuario = this.usuarioRepository.findAll(filtro);
 
         if (usuario.size() >= 1) {
-            throw new BusinessExeption("Já existe um usuário cadatro com este email");
+            throw new BusinessException("Já existe um usuário cadatro com este email");
         } else if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
-            throw new BusinessExeption("A senha está diferente da confirmaçao de senha");
+            throw new BusinessException("A senha está diferente da confirmaçao de senha");
         } else {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(this.usuarioService.criarUsuario(criarOuAtualizar));
@@ -59,12 +58,12 @@ public class UsuarioController {
             Optional<Usuario> usuarioAtualizado = this.usuarioRepository.findOne(filtro);
 
             if (usuarioAtualizado.isPresent()) {
-                throw new BusinessExeption("Já existe um usuário cadastrado com esse e-mail!");
+                throw new BusinessException("Já existe um usuário cadastrado com esse e-mail!");
             }
         }
 
         if (!criarOuAtualizar.getSenha().equals(criarOuAtualizar.getConfirmarSenha())) {
-            throw new BusinessExeption("A senha está diferente da confirmação de senha!");
+            throw new BusinessException("A senha está diferente da confirmação de senha!");
         } else {
             return ResponseEntity
                     .status(HttpStatus.OK)

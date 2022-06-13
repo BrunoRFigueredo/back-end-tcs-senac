@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(BusinessExeption.class)
+    @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorPayload handleBusinessExeption(Exception exception, HttpServletRequest request) {

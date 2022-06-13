@@ -4,6 +4,7 @@ import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -34,9 +35,16 @@ public class Instituicao {
     @Size(min = 1, max = 45, message = "O cnpj da instituição deve conter entre 1 e 45 caracteres")
     private String cnpj;
 
-    @Column(name = "pix")
-    @Size(min = 1, max = 80, message = "A chave pix deve conter entre  e 80 caracteres")
-    private String pix;
+    @Column(name = "conta")
+    @NotNull(message = "A conta da instituição não pode ser nula!")
+    @NotEmpty(message = "A conta da instituição não pode ser vazia!")
+    private String conta;
+
+    @Column(name = "agencia")
+    @NotNull(message = "A agência da instituição não pode ser nula!")
+    @NotEmpty(message = "A agência da instituição não pode ser vazia!")
+    private String agencia;
+
 
     @Column(name = "email")
     @Size(min = 1, max = 100, message = "O email da instituição deve conter entre 1 e 100 caracteres")
