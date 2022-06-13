@@ -81,4 +81,13 @@ public class VoluntarioService {
         voluntario.setStatus(StatusEnum.INATIVO);
         this.voluntarioRepository.save(voluntario);
     }
+
+    public Voluntario buscarVoluntarioUsuario(Long idUsuario){
+
+        BooleanExpression filtro = QVoluntario.voluntario.usuario().id.eq(idUsuario)
+                .and(QVoluntario.voluntario.status.eq(StatusEnum.ATIVO));
+
+        return this.voluntarioRepository.findOne(filtro)
+                .orElseThrow(() -> new NotFoundException("Instituicao não encontrada para este usuário."));
+    }
 }

@@ -21,7 +21,7 @@ public class InstituicaoService {
     private UsuarioRepository usuarioRepository;
 
     public Instituicao cadastrarInstituicao(InstituicaoRepresentation.CriarOuAtualizar criarOuAtualizar, Usuario usuario){
-        // this.validaInstituicao(criarOuAtualizar);
+        this.validaInstituicao(criarOuAtualizar);
         PerfilPermissao perfilPermissao = this.perfilPermissaoService.buscarPerfilPermissao(2L);
         usuario.setPerfilPermissao(perfilPermissao);
 
