@@ -73,12 +73,14 @@ public interface InsumoRepresentation {
     class Lista {
         private Long id;
         private String nome;
+        private String descricao;
         private String unidadeMedida;
 
         private static Lista from(Insumo insumo) {
             return Lista.builder()
                     .id(insumo.getId())
                     .nome(insumo.getNome())
+                    .descricao(insumo.getDescricao())
                     .unidadeMedida(insumo.getUnidadeMedida())
                     .build();
         }

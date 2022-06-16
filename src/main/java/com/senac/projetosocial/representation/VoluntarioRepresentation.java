@@ -1,5 +1,7 @@
 package com.senac.projetosocial.representation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.senac.projetosocial.enums.SexoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Instituicao;
 import com.senac.projetosocial.model.Usuario;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,18 +26,21 @@ public interface VoluntarioRepresentation {
     @Getter
     @Setter
     class CriarOuAtualizar{
-        @NotNull(message = "O nome do voluntario não pode ser nulo!")
-        @Size(min = 1, max = 200, message = "O nome do voluntario deve conter entre 1 e 200 caracteres")
-        private String nome;
-
         @NotNull(message = "A biografia do voluntario não pode ser nula!")
         @Size(min = 1, max = 255, message = "A biografia do voluntario deve conter entre 1 e 255 caracteres")
         private String biografia;
 
-        @NotNull(message = "O cpf da instituição não pode ser nulo!")
+        @NotNull(message = "O cpf do voluntario não pode ser nulo!")
         @Size(min = 1, max = 11, message = "O cpf do voluntario deve conter entre 1 e 11 caracteres")
         private String cpf;
 
+        @NotNull(message = "A data de nascimento do voluntario não pode ser nulo!")
+        private LocalDate dataNascimento;
+
+        @NotNull(message = "O sexo do voluntário não pode ser nulo")
+        private SexoEnum sexo;
+
+        @NotNull(message = "O telefone do voluntario não pode ser nulo!")
         private String telefone;
 
         @Size(min = 1, max = 200, message = "O email do voluntario deve conter entre 1 e 100 caracteres")
@@ -74,9 +80,10 @@ public interface VoluntarioRepresentation {
     @Setter
     @Builder
     class Detalhe{
-        private String nome;
         private String biografia;
         private String cpf;
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        private LocalDate dataNascimento;
         private String telefone;
         private String email;
         private String pais;
@@ -91,9 +98,9 @@ public interface VoluntarioRepresentation {
 
         public static Detalhe from (Voluntario voluntario){
             return Detalhe.builder()
-                    .nome(voluntario.getNome())
                     .biografia(voluntario.getBiografia())
                     .cpf(voluntario.getCpf())
+                    .dataNascimento(voluntario.getDataNascimento())
                     .telefone(voluntario.getTelefone())
                     .email(voluntario.getUsuario().getEmail())
                     .pais(voluntario.getPais())
@@ -123,7 +130,6 @@ public interface VoluntarioRepresentation {
         public static Resumo from(Voluntario voluntario){
             return Resumo.builder()
                     .id(voluntario.getId())
-                    .nome(voluntario.getNome())
                     .email((voluntario.getUsuario().getEmail()))
                     .telefone(voluntario.getTelefone())
                     .build();
@@ -136,20 +142,24 @@ public interface VoluntarioRepresentation {
     @Builder
     class Lista{
         private Long id;
-        private String nome;
         private String telefone;
         private String email;
         private String bairro;
         private String cidade;
-
+        private SexoEnum sexo;
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        private LocalDate dataNascimento;
+        private UsuarioRepresentation.Resumo usuario;
         private static Lista from (Voluntario voluntario){
             return Lista.builder()
                     .id(voluntario.getId())
-                    .nome(voluntario.getNome())
                     .telefone(voluntario.getTelefone())
                     .email(voluntario.getUsuario().getEmail())
                     .bairro(voluntario.getBairro())
                     .cidade(voluntario.getCidade())
+                    .dataNascimento(voluntario.getDataNascimento())
+                    .sexo(voluntario.getSexo())
+                    .usuario(UsuarioRepresentation.Resumo.from(voluntario.getUsuario()))
                     .build();
         }
 

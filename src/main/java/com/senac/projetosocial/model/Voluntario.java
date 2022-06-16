@@ -1,11 +1,13 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.SexoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -19,11 +21,6 @@ public class Voluntario {
     @SequenceGenerator(name = "sequence_voluntario", sequenceName = "sequence_voluntario", allocationSize = 1)
     private Long id;
 
-    @Column(name = "nome")
-    @NotNull(message = "O nome do voluntario não pode ser nulo!")
-    @Size(min = 1, max = 200, message = "O nome do voluntario deve conter entre 1 e 200 caracteres")
-    private String nome;
-
     @Column(name = "biografia")
     @NotNull(message = "A biografia do voluntario não pode ser nula!")
     @Size(min = 1, max = 255, message = "A biografia do voluntario deve conter entre 1 e 255 caracteres")
@@ -33,6 +30,14 @@ public class Voluntario {
     @NotNull(message = "O cpf da instituição não pode ser nulo!")
     @Size(min = 1, max = 11, message = "O cpf do voluntario deve conter entre 1 e 11 caracteres")
     private String cpf;
+
+    @Column(name = "data_nascimento")
+    @NotNull(message = "A data de nascimento do voluntario não pode ser nulo!")
+    private LocalDate dataNascimento;
+
+    @Column(name = "sexo")
+    @NotNull(message = "O sexo do voluntário não pode ser nulo")
+    private SexoEnum sexo;
 
     @Column(name = "telefone")
     @NotNull(message = "O telefone não pode ser nulo!")

@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Projeto;
 import lombok.Builder;
@@ -49,7 +50,9 @@ public interface ProjetoRepresentation {
         private String nome;
         private String descricao;
         private StatusEnum status;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataInicio;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataFinal;
         private InstituicaoRepresentation.Resumo instituicao;
 
@@ -103,7 +106,9 @@ public interface ProjetoRepresentation {
     class Lista{
         private Long id;
         private String nome;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate data_inicio;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate data_final;
 
         private static Lista from (Projeto projeto){

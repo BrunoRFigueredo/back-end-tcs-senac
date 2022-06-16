@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.senac.projetosocial.enums.StatusAprovacaoEnum;
 import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.enums.StatusServicoEnum;
@@ -56,7 +57,9 @@ public interface ProjetoServicoRepresentation {
         private StatusEnum status;
         private StatusServicoEnum statusServico;
         private StatusAprovacaoEnum statusAprovacao;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataInicio;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataFinal;
         private VoluntarioRepresentation.Resumo voluntario;
         private ProjetoRepresentation.Resumo projeto;
@@ -96,7 +99,9 @@ public interface ProjetoServicoRepresentation {
     @Builder
     class Lista{
         private Long id;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataInicio;
+        @JsonFormat(pattern = "dd/MM/yyyy")
         private LocalDate dataFinal;
         private Long idVoluntario;
         private String nomeVoluntario;
@@ -120,7 +125,7 @@ public interface ProjetoServicoRepresentation {
                     .dataInicio(dataInicioFormatada)
                     .dataFinal(dataFinalFormatada)
                     .idVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? null : projetoServico.getVoluntario().getId())
-                    .nomeVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? "Sem voluntário" : projetoServico.getVoluntario().getNome())
+                    .nomeVoluntario(Objects.isNull(projetoServico.getVoluntario()) ? "Sem voluntário" : projetoServico.getVoluntario().getUsuario().getNome())
                     .nomeServico(projetoServico.getServico().getNome())
                     .statusServicoEnum(projetoServico.getStatusServico())
                     .build();

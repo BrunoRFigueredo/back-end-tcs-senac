@@ -28,9 +28,10 @@ public class VoluntarioService {
         this.usuarioRepository.save(usuario);
 
         Voluntario voluntario = Voluntario.builder()
-                .nome(criarOuAtualizar.getNome())
                 .biografia(criarOuAtualizar.getBiografia())
                 .cpf(criarOuAtualizar.getCpf())
+                .dataNascimento(criarOuAtualizar.getDataNascimento())
+                .sexo(criarOuAtualizar.getSexo())
                 .telefone(criarOuAtualizar.getTelefone())
                 .pais(criarOuAtualizar.getPais())
                 .estado(criarOuAtualizar.getEstado())
@@ -58,9 +59,10 @@ public class VoluntarioService {
         Voluntario antigoVoluntario = this.buscarVoluntario(id);
 
         Voluntario voluntarioAtualizado = antigoVoluntario.toBuilder()
-                .nome(criarOuAtualizar.getNome())
                 .biografia(criarOuAtualizar.getBiografia())
                 .cpf(criarOuAtualizar.getCpf())
+                .dataNascimento(criarOuAtualizar.getDataNascimento())
+                .sexo(criarOuAtualizar.getSexo())
                 .telefone(criarOuAtualizar.getTelefone())
                 .pais(criarOuAtualizar.getPais())
                 .estado(criarOuAtualizar.getEstado())
