@@ -1,13 +1,10 @@
 package com.senac.projetosocial.controller;
 
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.senac.projetosocial.enums.StatusEnum;
-import com.senac.projetosocial.model.*;
+import com.senac.projetosocial.model.Insumo;
+import com.senac.projetosocial.model.Projeto;
+import com.senac.projetosocial.model.ProjetoInsumo;
 import com.senac.projetosocial.repository.ProjetoInsumoRepository;
-import com.senac.projetosocial.representation.CategoriaRepresentation;
 import com.senac.projetosocial.representation.ProjetoInsumoRepresentation;
-import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.InsumoService;
 import com.senac.projetosocial.service.ProjetoInsumoService;
 import com.senac.projetosocial.service.ProjetoService;
@@ -16,13 +13,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/projeto-insumo")
@@ -47,18 +42,12 @@ public class ProjetoInsumoController {
 
     @GetMapping("/")
     public ResponseEntity<Paginacao> buscarProjetoInsumo(
-            @QuerydslPredicate(root = Categoria.class) Predicate filtroURI,
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina){
 
-        BooleanExpression filtro = Objects.isNull(filtroURI) ?
-                QCategoria.categoria.status.eq(StatusEnum.ATIVO) :
-                QCategoria.categoria.status.eq(StatusEnum.ATIVO)
-                        .and(filtroURI);
-
         Pageable pagina = PageRequest.of(numeroPagina, tamanhoPagina);
 
-        Page<ProjetoInsumo> listaProjetoInsumo = this.projetoInsumoRepository.findAll(filtro, pagina);
+        Page<ProjetoInsumo> listaProjetoInsumo = this.projetoInsumoRepository.findAll(pagina);
 
         Paginacao paginacao = Paginacao.builder()
                 .paginaSelecionada(numeroPagina)
@@ -91,6 +80,13 @@ public class ProjetoInsumoController {
                 .build();
 
         return ResponseEntity.ok(paginacao);
+    }
+
+    @PutMapping("/{id}/concluir")
+    public ResponseEntity<ProjetoInsumo> concluirProjetoInsumo(@PathVariable("id") Long id) {
+        this.projetoInsumoService.concluirProjetoInsumo(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
     }
 
     @GetMapping("/{id}")

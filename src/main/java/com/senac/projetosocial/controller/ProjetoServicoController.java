@@ -73,7 +73,7 @@ public class ProjetoServicoController {
     }
 
 
-    @PutMapping("{id}/concluir-servico")
+    @PutMapping("/servicos/{id}/concluir-servico")
     public ResponseEntity<ProjetoServicoRepresentation.Detalhe> concluirServico(
             @PathVariable("id") Long id) {
 
@@ -127,8 +127,8 @@ public class ProjetoServicoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity apagarProjeto(@PathVariable("id") Long id) {
-        this.projetoService.apagarProjeto(id);
+    public ResponseEntity apagarProjetoServico(@PathVariable("id") Long id) {
+        this.projetoServicoService.apagarProjetoServico(id);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

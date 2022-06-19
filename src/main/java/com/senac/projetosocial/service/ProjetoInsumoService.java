@@ -21,12 +21,11 @@ public class ProjetoInsumoService {
     private final ProjetoInsumoRepository projetoInsumoRepository;
 
     public ProjetoInsumo salvarProjetoInsumo(Insumo insumo, Projeto projeto, ProjetoInsumoRepresentation.CriarOuAtualizar criarOuAtualizar) {
-        System.out.println(criarOuAtualizar.getStatus());
         ProjetoInsumo projetoInsumo = ProjetoInsumo.builder()
                 .insumo(insumo)
                 .projeto(projeto)
                 .quantidade(criarOuAtualizar.getQuantidade())
-                .status(criarOuAtualizar.getStatus())
+                .status(StatusInsumoEnum.EM_ANDAMENTO)
                 .build();
 
         return this.projetoInsumoRepository.save(projetoInsumo);
@@ -38,7 +37,6 @@ public class ProjetoInsumoService {
                 .insumo(insumo)
                 .projeto(projeto)
                 .quantidade(criarOuAtualizar.getQuantidade())
-                .status(criarOuAtualizar.getStatus())
                 .build();
 
         return this.projetoInsumoRepository.save(projetoInsumoAtualizado);
@@ -53,6 +51,15 @@ public class ProjetoInsumoService {
 
     public ProjetoInsumo buscarProjetoInsumo(Long id) {
         return this.projetoInsumoRepository.findById(id).orElseThrow(() -> new NotFoundException("Insumo não encontrado."));
+    }
+
+
+    public void concluirProjetoInsumo(Long id) {
+        ProjetoInsumo projetoInsumo = this.projetoInsumoRepository.findById(id).orElseThrow(() -> new NotFoundException("Insumo não encontrado."));
+        projetoInsumo = projetoInsumo.toBuilder()
+                .status(StatusInsumoEnum.CONCLUIDO)
+                .build();
+        this.projetoInsumoRepository.save(projetoInsumo);
     }
 
     public void deletarProjetoInsumo(Long id) {
