@@ -7,6 +7,7 @@ import com.senac.projetosocial.model.*;
 import com.senac.projetosocial.repository.ProjetoInsumoRepository;
 import com.senac.projetosocial.representation.CategoriaRepresentation;
 import com.senac.projetosocial.representation.ProjetoInsumoRepresentation;
+import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.InsumoService;
 import com.senac.projetosocial.service.ProjetoInsumoService;
 import com.senac.projetosocial.service.ProjetoService;
@@ -41,7 +42,7 @@ public class ProjetoInsumoController {
         Projeto projeto = this.projetoService.buscarProjeto(criarOuAtualizar.getProjeto());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.projetoInsumoService.salvarProjetoInsumo(insumo,projeto));
+                .body(this.projetoInsumoService.salvarProjetoInsumo(insumo,projeto, criarOuAtualizar));
     }
 
     @GetMapping("/")
@@ -71,6 +72,27 @@ public class ProjetoInsumoController {
         return ResponseEntity.ok(paginacao);
     }
 
+    @GetMapping("/insumos/{idProjeto}")
+    public ResponseEntity<Paginacao> buscarProjetosInsumosByProjeto(
+            @PathVariable("idProjeto") Long idProjeto,
+            @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
+            @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
+
+        Pageable paginaInsumosProjeto = PageRequest.of(numeroPagina, tamanhoPagina);
+
+        Page<ProjetoInsumo> listaInsumosProjeto = this.projetoInsumoService.buscarProjetosInsumosByProjeto(idProjeto, paginaInsumosProjeto);
+
+        Paginacao paginacao = Paginacao.builder()
+                .paginaSelecionada(numeroPagina)
+                .tamanhoPagina(tamanhoPagina)
+                .totalRegistros(listaInsumosProjeto.getTotalElements())
+                .proximaPagina(listaInsumosProjeto.hasNext())
+                .conteudo(ProjetoInsumoRepresentation.Lista.from(listaInsumosProjeto.getContent()))
+                .build();
+
+        return ResponseEntity.ok(paginacao);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProjetoInsumo> buscarProjetoInsumo(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.projetoInsumoService.buscarProjetoInsumo(id));
@@ -85,7 +107,7 @@ public class ProjetoInsumoController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.projetoInsumoService.atualizarProjetoInsumo(id, insumo,projeto));
+                .body(this.projetoInsumoService.atualizarProjetoInsumo(id, insumo,projeto, criarOuAtualizar));
     }
 
     @DeleteMapping("/{id}")

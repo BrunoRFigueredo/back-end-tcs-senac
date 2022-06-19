@@ -1,5 +1,6 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusInsumoEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,14 @@ public class ProjetoInsumo {
     @JoinColumn(name = "id_insumo")
     @NotNull(message = "O insumo do projeto não pode ser nulo!")
     private Insumo insumo;
+
+    @Column(name = "quantidade")
+    @NotNull(message = "A quantidade de insumos do projeto não pode ser nulo!")
+    private Double quantidade;
+
+    @Column(name = "status")
+    @NotNull(message = "O status do insumo do projeto não pode ser nulo!")
+    private StatusInsumoEnum status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_projeto")

@@ -1,5 +1,6 @@
 package com.senac.projetosocial.representation;
 
+import com.senac.projetosocial.enums.StatusInsumoEnum;
 import com.senac.projetosocial.model.Insumo;
 import com.senac.projetosocial.model.Projeto;
 import com.senac.projetosocial.model.ProjetoInsumo;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,12 @@ public interface ProjetoInsumoRepresentation {
 
         @NotNull(message = "O projeto do insumo não pode ser nulo!")
         private Long projeto;
+
+        @NotNull(message = "A quantidade de insumos do projeto não pode ser nulo!")
+        private Double quantidade;
+
+        @NotNull(message = "O status do insumo do projeto não pode ser nulo!")
+        private StatusInsumoEnum status;
     }
 
     @Data
@@ -48,21 +56,26 @@ public interface ProjetoInsumoRepresentation {
     @Builder
     class Lista {
         private Long id;
+        private Double quantidade;
+        private StatusInsumoEnum status;
         private Insumo insumo;
+        private String nomeInsumo;
         private Projeto projeto;
 
-        private static ProjetoInsumo from(ProjetoInsumo projetoInsumo) {
-            return ProjetoInsumo.builder()
+        private static Lista from(ProjetoInsumo projetoInsumo) {
+            return Lista.builder()
                     .id(projetoInsumo.getId())
-                    .insumo(projetoInsumo.getInsumo())
+                    .quantidade(projetoInsumo.getQuantidade())
+                    .status(projetoInsumo.getStatus())
                     .projeto(projetoInsumo.getProjeto())
+                    .nomeInsumo(projetoInsumo.getInsumo().getNome())
                     .build();
         }
 
-        public static List<ProjetoInsumo> from(List<ProjetoInsumo> projetoInsumos) {
+        public static List<Lista> from(List<ProjetoInsumo> projetoInsumos) {
             return projetoInsumos
                     .stream()
-                    .map(ProjetoInsumoRepresentation.Lista::from)
+                    .map(Lista::from)
                     .collect(Collectors.toList());
         }
     }

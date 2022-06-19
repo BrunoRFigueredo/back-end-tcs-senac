@@ -43,6 +43,7 @@ public interface InstituicaoRepresentation {
         @Size(min = 1, max = 100, message = "O email da instituição deve conter entre 1 e 100 caracteres")
         private String email;
 
+        @NotNull(message = "O telefone da instituição não pode ser nulo")
         private String telefone;
 
         @Size(min = 1, max = 20, message = "O pais da instituição deve conter entre 1 e 20 caracteres")
@@ -132,6 +133,7 @@ public interface InstituicaoRepresentation {
         private String nome;
         private String descricao;
         private String cnpj;
+        private String telefone;
 
         public static Resumo from(Instituicao instituicao){
             return Resumo.builder()
@@ -139,6 +141,7 @@ public interface InstituicaoRepresentation {
                     .nome(instituicao.getNome())
                     .descricao((instituicao.getDescricao()))
                     .cnpj(instituicao.getCnpj())
+                    .telefone(instituicao.getTelefone())
                     .build();
         }
     }

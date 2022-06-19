@@ -90,7 +90,7 @@ public interface ProjetoRepresentation {
         private String descricao;
 
         public static ProjetoRepresentation.Resumo from(Projeto projeto){
-            return ProjetoRepresentation.Resumo.builder()
+            return Resumo.builder()
                     .id(projeto.getId())
                     .nome(projeto.getNome())
                     .descricao(projeto.getDescricao())
