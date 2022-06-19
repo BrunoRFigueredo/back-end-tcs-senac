@@ -37,11 +37,7 @@ public class ProjetoServicoService {
 
     public Page<ProjetoServico> buscarProjetosServicosByProjeto(Long idProjeto, Pageable pageable) {
         BooleanExpression filtro = QProjetoServico.projetoServico.projeto().id.eq(idProjeto)
-                .and(QProjetoServico.projetoServico.statusServico.eq(StatusServicoEnum.EM_ANDAMENTO)
-                        .or(QProjetoServico.projetoServico.statusServico.eq(StatusServicoEnum.PENDENTE))
-                        .and(QProjetoServico.projetoServico.statusAprovacao.eq(StatusAprovacaoEnum.PROCESSANDO)
-                                .or(QProjetoServico.projetoServico.statusAprovacao.eq(StatusAprovacaoEnum.APROVADO)))
-                        .and(QProjetoServico.projetoServico.status.eq(StatusEnum.ATIVO)));
+                .and(QProjetoServico.projetoServico.status.eq(StatusEnum.ATIVO));
 
         return this.projetoServicoRepository.findAll(filtro, pageable);
     }
@@ -96,7 +92,8 @@ public class ProjetoServicoService {
             projetoNovo = projetoServicoBuilder
                     .status(StatusEnum.ATIVO)
                     .statusAprovacao(StatusAprovacaoEnum.REPROVADO)
-                    .statusServico(StatusServicoEnum.CONCLUIDO)
+                    .statusServico(StatusServicoEnum.PENDENTE)
+                    .voluntario(null)
                     .build();
         }
 
@@ -114,6 +111,7 @@ public class ProjetoServicoService {
 
         return this.projetoServicoRepository.save(projetoNovo);
     }
+
 
 
     public void apagarProjetoServico(Long id) {

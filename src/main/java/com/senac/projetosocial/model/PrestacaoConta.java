@@ -1,10 +1,13 @@
 package com.senac.projetosocial.model;
 
+import com.senac.projetosocial.enums.StatusEnum;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity(name = "prestacao_conta")
 @Getter
@@ -26,6 +29,16 @@ public class PrestacaoConta {
     @Column(name = "qtd_alimento")
     @NotNull(message = "A quantidade de alimento não pode ser nulo!")
     private Integer qtdAlimento;
+
+    @Column(name = "data_prestacao")
+    @NotNull(message = "A data de prestação não pode ser nula")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataPrestacao;
+
+    @Column(name = "status")
+    @NotNull(message = "A data de prestação não pode ser nula")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private StatusEnum statusEnum;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
