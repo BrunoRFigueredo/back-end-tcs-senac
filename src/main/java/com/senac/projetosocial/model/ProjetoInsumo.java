@@ -3,8 +3,8 @@ package com.senac.projetosocial.model;
 import com.senac.projetosocial.enums.StatusInsumoEnum;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity(name = "projeto_insumo")
 @Getter

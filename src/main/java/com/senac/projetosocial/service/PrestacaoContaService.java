@@ -40,7 +40,7 @@ public class PrestacaoContaService {
     }
 
     public Page<PrestacaoConta> buscarPrestacaoContaByProjeto(Long idProjeto, Pageable pageable) {
-        BooleanExpression filtro = QPrestacaoConta.prestacaoConta.projeto().id.eq(idProjeto)
+        BooleanExpression filtro = QPrestacaoConta.prestacaoConta.projeto.id.eq(idProjeto)
                 .and(QPrestacaoConta.prestacaoConta.statusEnum.eq(StatusEnum.ATIVO));
 
         return this.prestacaoContaRepository.findAll(filtro, pageable);

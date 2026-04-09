@@ -3,19 +3,14 @@ package com.senac.projetosocial.service;
 import com.senac.projetosocial.exceptions.NotFoundException;
 import com.senac.projetosocial.exceptions.UnauthorizedException;
 import com.senac.projetosocial.jwt.TokenService;
-import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.QUsuario;
 import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.repository.UsuarioRepository;
 import com.senac.projetosocial.representation.LoginRepresentation;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
 import lombok.AllArgsConstructor;
-import org.apache.struts.chain.commands.UnauthorizedActionException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

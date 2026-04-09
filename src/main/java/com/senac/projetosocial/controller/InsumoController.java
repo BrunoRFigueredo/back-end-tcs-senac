@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Objects;
 
 @RestController
@@ -57,7 +57,7 @@ public class InsumoController {
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
 
-        BooleanExpression where = QInsumo.insumo.status.eq(StatusEnum.ATIVO).and(QInsumo.insumo.instituicao().id.eq(idInstituicao));
+        BooleanExpression where = QInsumo.insumo.status.eq(StatusEnum.ATIVO).and(QInsumo.insumo.instituicao.id.eq(idInstituicao));
         BooleanExpression filtro = Objects.isNull(filtroURI) ?
                 where :
                 where.and(filtroURI);

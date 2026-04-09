@@ -43,7 +43,7 @@ public class ProjetoInsumoService {
     }
 
     public Page<ProjetoInsumo> buscarProjetosInsumosByProjeto(Long idProjeto, Pageable pageable) {
-        BooleanExpression filtroInsumo = QProjetoInsumo.projetoInsumo.projeto().id.eq(idProjeto)
+        BooleanExpression filtroInsumo = QProjetoInsumo.projetoInsumo.projeto.id.eq(idProjeto)
                 .and(QProjetoInsumo.projetoInsumo.status.eq(StatusInsumoEnum.EM_ANDAMENTO));
 
         return this.projetoInsumoRepository.findAll(filtroInsumo, pageable);

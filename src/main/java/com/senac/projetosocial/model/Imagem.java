@@ -2,7 +2,7 @@ package com.senac.projetosocial.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Getter
 @Setter

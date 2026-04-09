@@ -86,7 +86,7 @@ public class VoluntarioService {
 
     public Voluntario buscarVoluntarioUsuario(Long idUsuario){
 
-        BooleanExpression filtro = QVoluntario.voluntario.usuario().id.eq(idUsuario)
+        BooleanExpression filtro = QVoluntario.voluntario.usuario.id.eq(idUsuario)
                 .and(QVoluntario.voluntario.status.eq(StatusEnum.ATIVO));
 
         return this.voluntarioRepository.findOne(filtro)

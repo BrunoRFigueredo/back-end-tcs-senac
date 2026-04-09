@@ -57,7 +57,7 @@ public class InstituicaoService {
 
     public Instituicao buscarInstituicaoUsuario(Long idUsuario){
 
-        BooleanExpression filtro = QInstituicao.instituicao.usuario().id.eq(idUsuario)
+        BooleanExpression filtro = QInstituicao.instituicao.usuario.id.eq(idUsuario)
                 .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
 
         return this.instituicaoRepository.findOne(filtro)
@@ -66,7 +66,7 @@ public class InstituicaoService {
 
 
     public Boolean existeInstitituicaoByUsuario(Long idUsuario){
-        BooleanExpression filtro = QInstituicao.instituicao.usuario().id.eq(idUsuario)
+        BooleanExpression filtro = QInstituicao.instituicao.usuario.id.eq(idUsuario)
                 .and(QInstituicao.instituicao.status.eq(StatusEnum.ATIVO));
 
         return this.instituicaoRepository.exists(filtro);

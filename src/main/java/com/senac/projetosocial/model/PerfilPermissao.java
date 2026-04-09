@@ -1,11 +1,8 @@
 package com.senac.projetosocial.model;
 
-import com.senac.projetosocial.util.CustomStringArrayType;
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity(name = "perfil_permissao")
 @Getter
@@ -24,7 +21,6 @@ public class PerfilPermissao {
     private String perfil;
 
     @Column(name = "permissao", columnDefinition = "text[]")
-    @Type(type = "com.senac.projetosocial.util.CustomStringArrayType")
     private String[] permissao;
 
 }

@@ -6,8 +6,8 @@ import com.senac.projetosocial.enums.StatusServicoEnum;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity(name = "projeto_servico")
