@@ -1,19 +1,13 @@
 package com.senac.projetosocial.controller;
 
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.*;
-import com.senac.projetosocial.repository.ProjetoServicoRepository;
 import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.*;
 import com.senac.projetosocial.util.Paginacao;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

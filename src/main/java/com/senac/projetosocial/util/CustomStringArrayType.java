@@ -1,67 +1,70 @@
 package com.senac.projetosocial.util;
 
-import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
 import java.sql.*;
 
-public class CustomStringArrayType implements UserType {
+public class CustomStringArrayType implements UserType<String[]> {
 
     @Override
-    public int[] sqlTypes() {
-        return new int[]{Types.ARRAY};
+    public int getSqlType() {
+        return Types.ARRAY;
     }
 
     @Override
-    public Class returnedClass() {
+    public Class<String[]> returnedClass() {
         return String[].class;
     }
 
-    public boolean equals(Object o, Object o1) throws HibernateException {
-        return o.equals(o1);
-    }
-
-    public int hashCode(Object o) throws HibernateException {
-        return o == null ? 0 : o.hashCode();
+    @Override
+    public boolean equals(String[] x, String[] y) {
+        if (x == y) return true;
+        if (x == null || y == null) return false;
+        return java.util.Arrays.equals(x, y);
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
-            throws HibernateException, SQLException {
-        Array array = rs.getArray(names[0]);
-        return array != null ? array.getArray() : null;
+    public int hashCode(String[] x) {
+        return x == null ? 0 : java.util.Arrays.hashCode(x);
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
-            throws HibernateException, SQLException {
+    public String[] nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner)
+            throws SQLException {
+        Array array = rs.getArray(position);
+        return array != null ? (String[]) array.getArray() : null;
+    }
+
+    @Override
+    public void nullSafeSet(PreparedStatement st, String[] value, int index, SharedSessionContractImplementor session)
+            throws SQLException {
         if (value != null && st != null) {
-            Array array = session.connection().createArrayOf("text", (String[])value);
+            Array array = session.getJdbcConnectionAccess().obtainConnection().createArrayOf("text", value);
             st.setArray(index, array);
         } else {
-            st.setNull(index, sqlTypes()[0]);
+            st.setNull(index, Types.ARRAY);
         }
     }
 
-    public Object deepCopy(Object o) throws HibernateException {
-        return o;
+    @Override
+    public String[] deepCopy(String[] value) {
+        return value == null ? null : value.clone();
     }
 
+    @Override
     public boolean isMutable() {
-        return false;
+        return true;
     }
 
-    public Serializable disassemble(Object o) throws HibernateException {
-        return (Serializable) o;
+    @Override
+    public Serializable disassemble(String[] value) {
+        return value == null ? null : value.clone();
     }
 
-    public Object assemble(Serializable serializable, Object o) throws HibernateException {
-        return serializable;
-    }
-
-    public Object replace(Object o, Object o1, Object o2) throws HibernateException {
-        return o;
+    @Override
+    public String[] assemble(Serializable cached, Object owner) {
+        return cached == null ? null : ((String[]) cached).clone();
     }
 }

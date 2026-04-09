@@ -36,7 +36,7 @@ public class ProjetoServicoService {
     }
 
     public Page<ProjetoServico> buscarProjetosServicosByProjeto(Long idProjeto, Pageable pageable) {
-        BooleanExpression filtro = QProjetoServico.projetoServico.projeto().id.eq(idProjeto)
+        BooleanExpression filtro = QProjetoServico.projetoServico.projeto.id.eq(idProjeto)
                 .and(QProjetoServico.projetoServico.status.eq(StatusEnum.ATIVO));
 
         return this.projetoServicoRepository.findAll(filtro, pageable);

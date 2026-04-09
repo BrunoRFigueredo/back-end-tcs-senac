@@ -57,7 +57,7 @@ public class InsumoController {
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
 
-        BooleanExpression where = QInsumo.insumo.status.eq(StatusEnum.ATIVO).and(QInsumo.insumo.instituicao().id.eq(idInstituicao));
+        BooleanExpression where = QInsumo.insumo.status.eq(StatusEnum.ATIVO).and(QInsumo.insumo.instituicao.id.eq(idInstituicao));
         BooleanExpression filtro = Objects.isNull(filtroURI) ?
                 where :
                 where.and(filtroURI);

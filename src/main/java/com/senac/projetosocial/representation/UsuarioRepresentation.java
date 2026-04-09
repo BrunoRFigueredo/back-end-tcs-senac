@@ -4,9 +4,11 @@ import com.senac.projetosocial.enums.StatusEnum;
 import com.senac.projetosocial.model.Imagem;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.model.Usuario;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,6 +52,8 @@ public interface UsuarioRepresentation {
     @Getter
     @Setter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     class Detail {
         private Long id;
         private String nome;
@@ -80,6 +84,8 @@ public interface UsuarioRepresentation {
     @Getter
     @Setter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     class Resumo {
         private String nome;
         private String email;
@@ -99,6 +105,8 @@ public interface UsuarioRepresentation {
     @Getter
     @Setter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     class Lista {
         private Long id;
         private String nome;
@@ -120,6 +128,8 @@ public interface UsuarioRepresentation {
     @Data
     @Getter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     class UsuarioToken{
         private Long id;
         private String nome;

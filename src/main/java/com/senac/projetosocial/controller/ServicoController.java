@@ -56,7 +56,7 @@ public class ServicoController {
             @RequestParam(name = "tamanhoPagina", defaultValue = "5") int tamanhoPagina,
             @RequestParam(name = "paginaDesejada", defaultValue = "0") int numeroPagina) {
 
-        BooleanExpression where = QServico.servico.status.eq(StatusEnum.ATIVO).and(QServico.servico.instituicao().id.eq(idInstituicao));
+        BooleanExpression where = QServico.servico.status.eq(StatusEnum.ATIVO).and(QServico.servico.instituicao.id.eq(idInstituicao));
         BooleanExpression filtro = Objects.isNull(filtroURI) ?
                 where :
                 where.and(filtroURI);

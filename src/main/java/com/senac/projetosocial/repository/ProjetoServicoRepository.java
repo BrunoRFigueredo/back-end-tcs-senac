@@ -6,11 +6,11 @@ import com.senac.projetosocial.model.ProjetoServico;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface ProjetoServicoRepository extends PagingAndSortingRepository<ProjetoServico, Long>,
+public interface ProjetoServicoRepository extends JpaRepository<ProjetoServico, Long>,
         QuerydslPredicateExecutor<ProjetoServico> {
 
     Page<ProjetoServico> findAll(Predicate predicate, Pageable pageable);
