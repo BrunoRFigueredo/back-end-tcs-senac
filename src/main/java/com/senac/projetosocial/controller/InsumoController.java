@@ -10,6 +10,7 @@ import com.senac.projetosocial.service.CategoriaService;
 import com.senac.projetosocial.service.InstituicaoService;
 import com.senac.projetosocial.service.InsumoService;
 import com.senac.projetosocial.util.Paginacao;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.Objects;
 
+@Tag(name = "Insumo")
 @RestController
 @RequestMapping("/insumo")
 @AllArgsConstructor

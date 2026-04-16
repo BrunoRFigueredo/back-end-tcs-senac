@@ -8,6 +8,7 @@ import com.senac.projetosocial.representation.ProjetoServicoRepresentation;
 import com.senac.projetosocial.service.PrestacaoContaService;
 import com.senac.projetosocial.service.ProjetoService;
 import com.senac.projetosocial.util.Paginacao;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+@Tag(name = "Prestação de Conta")
 @RestController
 @RequestMapping("/prestacao-conta")
 @AllArgsConstructor

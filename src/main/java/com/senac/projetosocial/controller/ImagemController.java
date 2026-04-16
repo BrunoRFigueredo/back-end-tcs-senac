@@ -3,6 +3,7 @@ package com.senac.projetosocial.controller;
 import com.senac.projetosocial.model.Imagem;
 import com.senac.projetosocial.service.ImagemService;
 import com.senac.projetosocial.util.UploadFileResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 
+@Tag(name = "Imagem")
 @RestController
 @RequestMapping("/imagem/")
 @AllArgsConstructor
