@@ -3,6 +3,7 @@ package com.senac.projetosocial.controller;
 import com.senac.projetosocial.model.PerfilPermissao;
 import com.senac.projetosocial.representation.PerfilPermissaoRepresentation;
 import com.senac.projetosocial.service.PerfilPermissaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+@Tag(name = "Perfil e Permissão")
 @RestController
 @RequestMapping("/perfil-permissao")
 @AllArgsConstructor

@@ -2,6 +2,7 @@ package com.senac.projetosocial.controller;
 
 import com.senac.projetosocial.representation.LoginRepresentation;
 import com.senac.projetosocial.service.LoginService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Autenticação")
 @RestController
 @RequestMapping("/login")
 @AllArgsConstructor

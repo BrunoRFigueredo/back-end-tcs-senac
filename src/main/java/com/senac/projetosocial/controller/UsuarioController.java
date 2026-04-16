@@ -8,6 +8,7 @@ import com.senac.projetosocial.model.Usuario;
 import com.senac.projetosocial.repository.UsuarioRepository;
 import com.senac.projetosocial.representation.UsuarioRepresentation;
 import com.senac.projetosocial.service.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@Tag(name = "Usuário")
 @RestController
 @RequestMapping("/usuario/")
 @AllArgsConstructor
